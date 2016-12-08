@@ -12,7 +12,6 @@
 namespace Broadway\Saga;
 
 use Broadway\Domain\Metadata;
-use Broadway\TestCase;
 
 class SagaMetadataEnricherTest extends TestCase
 {

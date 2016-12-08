@@ -9,10 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Broadway\Saga;
+namespace Broadway\Saga\State;
 
-use Broadway\Saga\State\Criteria;
-use Broadway\TestCase;
+use Broadway\Saga\TestCase;
 
 class CriteriaTest extends TestCase
 {

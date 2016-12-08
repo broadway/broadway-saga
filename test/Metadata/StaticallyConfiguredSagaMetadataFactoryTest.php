@@ -12,7 +12,7 @@
 namespace Broadway\Saga\Metadata;
 
 use Broadway\Saga\State\Criteria;
-use Broadway\TestCase;
+use Broadway\Saga\TestCase;
 
 class StaticallyConfiguredSagaMetadataFactoryTest extends TestCase
 {

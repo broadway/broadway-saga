@@ -11,7 +11,7 @@
 
 namespace Broadway\Saga\Metadata;
 
-use Broadway\TestCase;
+use Broadway\Saga\TestCase;
 
 class StaticallyConfiguredSagaMetadataTest extends TestCase
 {

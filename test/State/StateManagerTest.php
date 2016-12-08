@@ -12,7 +12,7 @@
 namespace Broadway\Saga\State;
 
 use Broadway\Saga\State;
-use Broadway\TestCase;
+use Broadway\Saga\TestCase;
 use Broadway\UuidGenerator\Testing\MockUuidGenerator;
 
 class StateManagerTest extends TestCase

@@ -11,8 +11,6 @@
 
 namespace Broadway\Saga;
 
-use Broadway\TestCase;
-
 class StateTest extends TestCase
 {
     private $state;
