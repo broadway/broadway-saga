@@ -1,0 +1,60 @@
+{
+  "name": "broadway/broadway-saga",
+  "description": "Proof-of-concept component providing saga functionality to broadway/broadway.",
+  "license": "MIT",
+  "require": {
+    "php": ">=5.5.9",
+    "broadway/broadway": "^1.0@dev",
+    "beberlei/assert": "^2.0"
+  },
+  "authors": [
+    {
+      "name": "Alexander",
+      "email": "iam.asm89@gmail.com"
+    },
+    {
+      "name": "Emil",
+      "email": "emil@broekmeulen.com"
+    },
+    {
+      "name": "Fritsjan",
+      "email": "fritsjan@qandidate.com"
+    },
+    {
+      "name": "othillo",
+      "email": "othillo@othillo.nl"
+    },
+    {
+      "name": "Willem-Jan",
+      "email": "wjzijderveld@gmail.com"
+    },
+    {
+      "name": "Qandidate.com",
+      "homepage": "http://labs.qandidate.com/"
+    }
+  ],
+  "require-dev": {
+    "doctrine/mongodb": "^1.0",
+    "phpunit/phpunit": "^4.8",
+    "ramsey/uuid": "^3.3"
+  },
+  "suggest": {
+    "doctrine/mongodb": "For persisting saga states",
+    "alcaeus/mongo-php-adapter": "Polyfill for Mongo extension on PHP 7"
+  },
+  "autoload": {
+    "psr-4": {
+      "Broadway\\Saga\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Broadway\\Saga\\": "test/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "0.2.x-dev"
+    }
+  }
+}

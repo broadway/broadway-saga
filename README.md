@@ -1,5 +1,5 @@
-Saga Component
-==============
+broadway/broadway-saga
+======================
 
 Proof-of-concept component providing saga functionality to your application.
 
