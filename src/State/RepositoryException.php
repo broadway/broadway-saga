@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the broadway/broadway package.
+ * This file is part of the broadway/broadway-saga package.
  *
  * (c) Qandidate.com <opensource@qandidate.com>
  *
