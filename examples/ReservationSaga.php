@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . '/../bootstrap.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 use Broadway\CommandHandling\CommandBusInterface;
 use Broadway\Saga\Metadata\StaticallyConfiguredSagaInterface;
