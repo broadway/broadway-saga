@@ -1,0 +1,36 @@
+language: php
+
+matrix:
+  include:
+    - php: 5.5
+    - php: 5.6
+    - php: 7.0
+    - php: 7.1
+    - php: hhvm
+  fast_finish: true
+  allow_failures:
+    - php: hhvm
+
+before_install:
+  # Disable XDebug speed up test execution.
+  - phpenv config-rm xdebug.ini || return 0
+  # Enable Mongo extension on PHP 5
+  - if [[ ${TRAVIS_PHP_VERSION:0:2} == "5." ]]; then echo "extension=mongo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini || return 0; fi
+  - echo "memory_limit=2G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini || return 0
+
+install:
+  - travis_retry composer self-update
+  # Install a polyfill for Mongo extension on PHP 7
+  - if [[ ${TRAVIS_PHP_VERSION:0:2} == "7." ]]; then travis_retry composer require "alcaeus/mongo-php-adapter=^1.0.0" --ignore-platform-reqs; fi
+  - if [[ ${TRAVIS_PHP_VERSION:0:2} == "5." ]]; then travis_retry composer update; fi
+  - composer info -i
+
+script:
+  - phpunit --exclude-group=none
+
+branches:
+  only:
+    - master
+
+services:
+  - mongodb
