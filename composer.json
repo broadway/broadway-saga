@@ -49,8 +49,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Broadway\\Saga\\": "test/",
-      "Broadway\\": "vendor/broadway/broadway/test/Broadway"
+      "Broadway\\Saga\\": "test/"
     }
   },
   "extra": {

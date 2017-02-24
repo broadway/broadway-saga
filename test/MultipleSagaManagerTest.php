@@ -14,7 +14,7 @@ namespace Broadway\Saga;
 use Assert\Assertion as Assert;
 use Broadway\Domain\DomainMessage;
 use Broadway\Domain\Metadata;
-use Broadway\EventDispatcher\TraceableEventDispatcher;
+use Broadway\EventDispatcher\Testing\TraceableEventDispatcher;
 use Broadway\Saga\Metadata\StaticallyConfiguredSagaInterface;
 use Broadway\Saga\Metadata\StaticallyConfiguredSagaMetadataFactory;
 use Broadway\Saga\State\Criteria;
