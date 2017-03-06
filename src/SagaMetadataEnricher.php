@@ -12,9 +12,9 @@
 namespace Broadway\Saga;
 
 use Broadway\Domain\Metadata;
-use Broadway\EventSourcing\MetadataEnrichment\MetadataEnricherInterface;
+use Broadway\EventSourcing\MetadataEnrichment\MetadataEnricher;
 
-class SagaMetadataEnricher implements MetadataEnricherInterface
+class SagaMetadataEnricher implements MetadataEnricher
 {
     private $sagaData = [];
 

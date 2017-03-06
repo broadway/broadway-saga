@@ -11,13 +11,13 @@
 
 require __DIR__ . '/ReservationSaga.php';
 
-use Broadway\CommandHandling\CommandBusInterface;
+use Broadway\CommandHandling\CommandBus;
 use Broadway\Saga\Testing\SagaScenarioTestCase;
 use Broadway\UuidGenerator\Testing\MockUuidSequenceGenerator;
 
 class ReservationSagaTest extends SagaScenarioTestCase
 {
-    protected function createSaga(CommandBusInterface $commandBus)
+    protected function createSaga(CommandBus $commandBus)
     {
         return new ReservationSaga($commandBus, new MockUuidSequenceGenerator(
             [
