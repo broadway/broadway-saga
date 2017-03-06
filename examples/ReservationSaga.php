@@ -11,7 +11,7 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use Broadway\CommandHandling\CommandBusInterface;
+use Broadway\CommandHandling\CommandBus;
 use Broadway\Saga\Metadata\StaticallyConfiguredSagaInterface;
 use Broadway\Saga\Saga;
 use Broadway\Saga\State;
@@ -24,7 +24,7 @@ class ReservationSaga extends Saga implements StaticallyConfiguredSagaInterface
     private $uuidGenerator;
 
     public function __construct(
-        CommandBusInterface $commandBus,
+        CommandBus $commandBus,
         UuidGeneratorInterface $uuidGenerator
     ) {
         $this->commandBus    = $commandBus;

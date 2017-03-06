@@ -4,7 +4,7 @@
   "license": "MIT",
   "require": {
     "php": ">=5.5.9",
-    "broadway/broadway": "^1.0@dev",
+    "broadway/broadway": "^1.0",
     "beberlei/assert": "^2.0"
   },
   "authors": [
@@ -54,7 +54,7 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-master": "0.2.x-dev"
+      "dev-master": "0.3.x-dev"
     }
   }
 }

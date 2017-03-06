@@ -11,9 +11,9 @@
 
 namespace Broadway\Saga\Testing;
 
-use Broadway\CommandHandling\CommandBusInterface;
+use Broadway\CommandHandling\CommandBus;
 use Broadway\CommandHandling\Testing\TraceableCommandBus;
-use Broadway\EventDispatcher\EventDispatcher;
+use Broadway\EventDispatcher\CallableEventDispatcher;
 use Broadway\Saga\Metadata\StaticallyConfiguredSagaMetadataFactory;
 use Broadway\Saga\MultipleSagaManager;
 use Broadway\Saga\SagaInterface;
@@ -32,10 +32,11 @@ abstract class SagaScenarioTestCase extends TestCase
     /**
      * Create the saga you want to test in this test case
      *
-     * @param  CommandBusInterface $commandBus
+     * @param  CommandBus $commandBus
+     *
      * @return SagaInterface
      */
-    abstract protected function createSaga(CommandBusInterface $commandBus);
+    abstract protected function createSaga(CommandBus $commandBus);
 
     protected function setUp()
     {
@@ -54,7 +55,7 @@ abstract class SagaScenarioTestCase extends TestCase
             [$saga],
             new StateManager($sagaStateRepository, new Version4Generator()),
             new StaticallyConfiguredSagaMetadataFactory(),
-            new EventDispatcher()
+            new CallableEventDispatcher()
         );
 
         return new Scenario($this, $sagaManager, $traceableCommandBus);

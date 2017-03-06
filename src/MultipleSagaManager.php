@@ -12,7 +12,7 @@
 namespace Broadway\Saga;
 
 use Broadway\Domain\DomainMessage;
-use Broadway\EventDispatcher\EventDispatcherInterface;
+use Broadway\EventDispatcher\EventDispatcher;
 use Broadway\Saga\Metadata\MetadataFactoryInterface;
 use Broadway\Saga\State\RepositoryInterface;
 use Broadway\Saga\State\StateManagerInterface;
@@ -31,7 +31,7 @@ class MultipleSagaManager implements SagaManagerInterface
         array $sagas,
         StateManagerInterface $stateManager,
         MetadataFactoryInterface $metadataFactory,
-        EventDispatcherInterface $eventDispatcher
+        EventDispatcher $eventDispatcher
     ) {
         $this->repository      = $repository;
         $this->sagas           = $sagas;
