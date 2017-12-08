@@ -14,8 +14,9 @@ matrix:
 before_install:
   # Disable XDebug speed up test execution.
   - phpenv config-rm xdebug.ini || return 0
-  # Enable Mongo extension on PHP 5
+  # Enable correct MongoDB driver for each PHP version
   - if [[ ${TRAVIS_PHP_VERSION:0:2} == "5." ]]; then echo "extension=mongo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini || return 0; fi
+  - if [[ ${TRAVIS_PHP_VERSION:0:2} == "7." ]]; then echo "extension=mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini || return 0; fi
   - echo "memory_limit=2G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini || return 0
 
 install:
