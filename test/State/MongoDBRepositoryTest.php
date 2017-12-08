@@ -16,7 +16,6 @@ use Doctrine\MongoDB\Connection;
 
 /**
  * @group mongo
- * @requires extension mongo
  */
 class MongoDBRepositoryTest extends AbstractRepositoryTest
 {
