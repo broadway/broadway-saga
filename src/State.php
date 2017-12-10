@@ -86,7 +86,7 @@ class State implements Serializable
     /**
      * {@inheritDoc}
      */
-    public function serialize()
+    public function serialize(): array
     {
         return ['id' => $this->getId(), 'values' => $this->values, 'done' => $this->isDone()];
     }

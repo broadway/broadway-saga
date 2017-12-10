@@ -23,7 +23,7 @@ class SagaMetadataEnricher implements MetadataEnricher
         $this->sagaData = ['type' => $type, 'state_id' => $id];
     }
 
-    public function enrich(Metadata $metadata)
+    public function enrich(Metadata $metadata): Metadata
     {
         if (count($this->sagaData) === 0) {
             return $metadata;
