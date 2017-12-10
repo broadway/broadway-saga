@@ -18,7 +18,7 @@ install:
   # Install a polyfill for Mongo extension on PHP 7
   - if [[ ${TRAVIS_PHP_VERSION:0:2} == "7." ]]; then travis_retry composer config "platform.ext-mongo" "1.6.16" && composer require alcaeus/mongo-php-adapter; fi
   - if [[ ${TRAVIS_PHP_VERSION:0:2} == "5." ]]; then travis_retry composer update; fi
-  - composer info -i
+  - composer info
 
 script:
   - vendor/bin/phpunit --exclude-group=none
