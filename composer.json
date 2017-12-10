@@ -5,7 +5,8 @@
   "require": {
     "php": ">=7.0",
     "broadway/broadway": "^2.0",
-    "beberlei/assert": "^2.0"
+    "beberlei/assert": "^2.0",
+    "alcaeus/mongo-php-adapter": "^1.1"
   },
   "authors": [
     {
@@ -55,6 +56,11 @@
   "extra": {
     "branch-alias": {
       "dev-master": "0.3.x-dev"
+    }
+  },
+  "config": {
+    "platform": {
+      "ext-mongo": "1.6.16"
     }
   }
 }
