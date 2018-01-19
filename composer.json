@@ -5,8 +5,7 @@
   "require": {
     "php": ">=7.0",
     "broadway/broadway": "^2.0",
-    "beberlei/assert": "^2.0",
-    "alcaeus/mongo-php-adapter": "^1.1"
+    "beberlei/assert": "^2.0"
   },
   "authors": [
     {
@@ -35,13 +34,11 @@
     }
   ],
   "require-dev": {
-    "doctrine/mongodb": "^1.0",
     "phpunit/phpunit": "^4.8",
     "ramsey/uuid": "^3.3"
   },
   "suggest": {
-    "doctrine/mongodb": "For persisting saga states",
-    "alcaeus/mongo-php-adapter": "Polyfill for Mongo extension on PHP 7"
+    "broadway/saga-mongodb": "For persisting saga states in MongoDB"
   },
   "autoload": {
     "psr-4": {
@@ -56,11 +53,6 @@
   "extra": {
     "branch-alias": {
       "dev-master": "1.0.x-dev"
-    }
-  },
-  "config": {
-    "platform": {
-      "ext-mongo": "1.6.16"
     }
   }
 }
