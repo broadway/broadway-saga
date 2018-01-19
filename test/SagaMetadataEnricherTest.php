@@ -13,7 +13,7 @@ namespace Broadway\Saga;
 
 use Broadway\Domain\Metadata;
 
-class SagaMetadataEnricherTest extends TestCase
+class SagaMetadataEnricherTest extends \PHPUnit_Framework_TestCase
 {
     private $sagaMetadataEnricher;
     private $metadata;

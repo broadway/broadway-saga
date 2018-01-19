@@ -11,9 +11,7 @@
 
 namespace Broadway\Saga\State;
 
-use Broadway\Saga\TestCase;
-
-class CriteriaTest extends TestCase
+class CriteriaTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test

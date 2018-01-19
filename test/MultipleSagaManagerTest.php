@@ -23,7 +23,7 @@ use Broadway\Saga\State\RepositoryInterface;
 use Broadway\Saga\State\StateManager;
 use Broadway\UuidGenerator\Rfc4122\Version4Generator;
 
-class MultipleSagaManagerTest extends TestCase
+class MultipleSagaManagerTest extends \PHPUnit_Framework_TestCase
 {
     private $manager;
     private $repository;

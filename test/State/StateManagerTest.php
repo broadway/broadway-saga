@@ -12,10 +12,9 @@
 namespace Broadway\Saga\State;
 
 use Broadway\Saga\State;
-use Broadway\Saga\TestCase;
 use Broadway\UuidGenerator\Testing\MockUuidGenerator;
 
-class StateManagerTest extends TestCase
+class StateManagerTest extends \PHPUnit_Framework_TestCase
 {
     private $repository;
     private $manager;

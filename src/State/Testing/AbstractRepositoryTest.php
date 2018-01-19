@@ -13,9 +13,8 @@ namespace Broadway\Saga\State\Testing;
 
 use Broadway\Saga\State;
 use Broadway\Saga\State\Criteria;
-use Broadway\Saga\TestCase;
 
-abstract class AbstractRepositoryTest extends TestCase
+abstract class AbstractRepositoryTest extends \PHPUnit_Framework_TestCase
 {
     protected $repository;
 
