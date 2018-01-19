@@ -38,7 +38,7 @@
     "ramsey/uuid": "^3.3"
   },
   "suggest": {
-    "broadway/saga-mongodb": "For persisting saga states in MongoDB"
+    "broadway/saga-state-mongodb": "For persisting saga states in MongoDB"
   },
   "autoload": {
     "psr-4": {
