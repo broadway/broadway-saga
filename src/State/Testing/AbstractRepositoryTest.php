@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Broadway\Saga\State;
+namespace Broadway\Saga\State\Testing;
 
 use Broadway\Saga\State;
-use Broadway\Saga\TestCase;
+use Broadway\Saga\State\Criteria;
 
-abstract class AbstractRepositoryTest extends TestCase
+abstract class AbstractRepositoryTest extends \PHPUnit_Framework_TestCase
 {
     protected $repository;
 
@@ -98,7 +98,7 @@ abstract class AbstractRepositoryTest extends TestCase
 
     /**
      * @test
-     * @expectedException Broadway\Saga\State\RepositoryException
+     * @expectedException \Broadway\Saga\State\RepositoryException
      * @expectedExceptionMessage Multiple saga state instances found.
      */
     public function it_throws_an_exception_if_multiple_matching_elements_are_found()

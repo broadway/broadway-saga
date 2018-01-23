@@ -13,5 +13,3 @@ can be used to wake up and start sagas.
 ```
 $ composer require broadway/broadway-saga
 ```
-
-> Note: to use MongoDB on PHP7 you will also need to install `alcaeus/mongo-php-adapter`
