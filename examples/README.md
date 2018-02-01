@@ -14,9 +14,9 @@ Sagas in Broadway
 
 In Broadway, a saga is a class that extends `Broadway\Saga\Saga`. It uses the 
 same conventions for listening to events (i.e. it has `handle*()` methods for 
-each event it's interested in). Instead of a `DomainMessage` instance, each
-of the `handle*()` methods receives a `Broadway\Saga\State` object as the
-second argument.
+each event it's interested in). The major difference is that the first argument 
+of the `handle*()` receive the `Broadway\Saga\State` object, followed by 
+`event` and `DomainMessage`. 
 
 A `handle*()` method should always return a `State` object, which will be 
 persisted afterwards. The `State` object can be used to store anything that's

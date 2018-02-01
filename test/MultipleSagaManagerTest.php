@@ -253,9 +253,10 @@ class MultipleSagaManagerTest extends \PHPUnit_Framework_TestCase
 class SagaManagerTestSaga implements StaticallyConfiguredSagaInterface
 {
     public $isCalled = false;
-    public function handle($event, State $state = null)
+    public function handle(State $state, DomainMessage $domainMessage)
     {
         $this->isCalled = true;
+        $event = $domainMessage->getPayload();
 
         if ($event instanceof TestEvent1) {
             $state->set('event', 'testevent1');
@@ -271,9 +272,14 @@ class SagaManagerTestSaga implements StaticallyConfiguredSagaInterface
     public static function configuration()
     {
         return [
-            'TestEvent1'    => function () { return new Criteria(['appId' => 42]); },
-            'TestEvent2'                                                  => function () { },
-            'TestEventDone'                                               => function () { return new Criteria(['appId' => 42]); },
+            'TestEvent1' => function () {
+                return new Criteria(['appId' => 42]);
+            },
+            'TestEvent2' => function () {
+            },
+            'TestEventDone' => function () {
+                return new Criteria(['appId' => 42]);
+            },
         ];
     }
 }
