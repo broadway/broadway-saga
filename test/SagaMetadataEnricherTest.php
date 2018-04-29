@@ -12,8 +12,9 @@
 namespace Broadway\Saga;
 
 use Broadway\Domain\Metadata;
+use PHPUnit\Framework\TestCase;
 
-class SagaMetadataEnricherTest extends \PHPUnit_Framework_TestCase
+class SagaMetadataEnricherTest extends TestCase
 {
     private $sagaMetadataEnricher;
     private $metadata;

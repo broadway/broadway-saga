@@ -11,7 +11,9 @@
 
 namespace Broadway\Saga\Metadata;
 
-class StaticallyConfiguredSagaMetadataTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class StaticallyConfiguredSagaMetadataTest extends TestCase
 {
     private $metadata;
 

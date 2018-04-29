@@ -22,8 +22,9 @@ use Broadway\Saga\State\InMemoryRepository;
 use Broadway\Saga\State\RepositoryInterface;
 use Broadway\Saga\State\StateManager;
 use Broadway\UuidGenerator\Rfc4122\Version4Generator;
+use PHPUnit\Framework\TestCase;
 
-class MultipleSagaManagerTest extends \PHPUnit_Framework_TestCase
+class MultipleSagaManagerTest extends TestCase
 {
     private $manager;
     private $repository;

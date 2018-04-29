@@ -11,7 +11,9 @@
 
 namespace Broadway\Saga;
 
-class StateTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class StateTest extends TestCase
 {
     private $state;
 

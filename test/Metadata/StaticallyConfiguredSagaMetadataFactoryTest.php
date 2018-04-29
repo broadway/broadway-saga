@@ -12,8 +12,9 @@
 namespace Broadway\Saga\Metadata;
 
 use Broadway\Saga\State\Criteria;
+use PHPUnit\Framework\TestCase;
 
-class StaticallyConfiguredSagaMetadataFactoryTest extends \PHPUnit_Framework_TestCase
+class StaticallyConfiguredSagaMetadataFactoryTest extends TestCase
 {
     /**
      * @test
