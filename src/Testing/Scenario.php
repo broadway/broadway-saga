@@ -15,7 +15,7 @@ use Broadway\CommandHandling\Testing\TraceableCommandBus;
 use Broadway\Domain\DomainMessage;
 use Broadway\Domain\Metadata;
 use Broadway\Saga\MultipleSagaManager;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 class Scenario
 {
@@ -26,7 +26,7 @@ class Scenario
     private $playhead;
 
     public function __construct(
-        PHPUnit_Framework_TestCase $testCase,
+        TestCase $testCase,
         MultipleSagaManager $sagaManager,
         TraceableCommandBus $traceableCommandBus
     ) {

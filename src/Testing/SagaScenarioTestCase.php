@@ -20,7 +20,7 @@ use Broadway\Saga\SagaInterface;
 use Broadway\Saga\State\InMemoryRepository;
 use Broadway\Saga\State\StateManager;
 use Broadway\UuidGenerator\Rfc4122\Version4Generator;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 abstract class SagaScenarioTestCase extends TestCase
 {

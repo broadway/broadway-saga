@@ -14,8 +14,9 @@ namespace Broadway\Saga\Metadata;
 use Broadway\Domain\DomainMessage;
 use Broadway\Saga\State;
 use Broadway\Saga\State\Criteria;
+use PHPUnit\Framework\TestCase;
 
-class StaticallyConfiguredSagaMetadataFactoryTest extends \PHPUnit_Framework_TestCase
+class StaticallyConfiguredSagaMetadataFactoryTest extends TestCase
 {
     /**
      * @test

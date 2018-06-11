@@ -12,8 +12,9 @@
 namespace Broadway\Saga\Metadata;
 
 use Broadway\Domain\DomainMessage;
+use PHPUnit\Framework\TestCase;
 
-class StaticallyConfiguredSagaMetadataTest extends \PHPUnit_Framework_TestCase
+class StaticallyConfiguredSagaMetadataTest extends TestCase
 {
     /**
      * @var Metadata
