@@ -38,7 +38,7 @@
     "ramsey/uuid": "^3.3"
   },
   "suggest": {
-    "broadway/saga-state-mongodb": "For persisting saga states in MongoDB"
+    "broadway/saga-state-mongodb": "For persisting saga states in MongoDB",
   },
   "autoload": {
     "psr-4": {
@@ -53,6 +53,11 @@
   "extra": {
     "branch-alias": {
       "dev-master": "1.0.x-dev"
+    }
+  },
+  "config": {
+    "platform": {
+      "ext-mongo": "1.6.16"
     }
   }
 }
