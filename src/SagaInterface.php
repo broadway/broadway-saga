@@ -11,12 +11,18 @@
 
 namespace Broadway\Saga;
 
+/**
+ * Interface SagaInterface
+ * @package Broadway\Saga
+ */
 interface SagaInterface
 {
     /**
      * @param mixed $event
      *
+     * @param State $state
+     *
      * @return State
      */
-    public function handle($event, State $state);
+    public function handle($event, State $state): State;
 }

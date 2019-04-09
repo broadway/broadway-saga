@@ -13,6 +13,10 @@ namespace Broadway\Saga\State;
 
 use RuntimeException;
 
+/**
+ * Class RepositoryException
+ * @package Broadway\Saga\State
+ */
 class RepositoryException extends RuntimeException
 {
 }

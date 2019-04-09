@@ -15,11 +15,29 @@ use Broadway\Saga\State;
 use Broadway\UuidGenerator\Testing\MockUuidGenerator;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class StateManagerTest
+ * @package Broadway\Saga\State
+ */
 class StateManagerTest extends TestCase
 {
+    /**
+     * @var InMemoryRepository
+     */
     private $repository;
-    private $manager;
 
+    /**
+     * @var MockUuidGenerator
+     */
+    private $manager;
+    /**
+     * @var MockUuidGenerator
+     */
+    private $generator;
+
+    /**
+     *
+     */
     public function setUp()
     {
         $this->repository = new InMemoryRepository();
@@ -30,7 +48,7 @@ class StateManagerTest extends TestCase
     /**
      * @test
      */
-    public function it_returns_a_new_state_object_if_the_criteria_is_null()
+    public function it_returns_a_new_state_object_if_the_criteria_is_null(): void
     {
         $state = $this->manager->findOneBy(null, 'sagaId');
 
@@ -40,7 +58,7 @@ class StateManagerTest extends TestCase
     /**
      * @test
      */
-    public function it_returns_an_existing_state_instance_matching_the_returned_criteria()
+    public function it_returns_an_existing_state_instance_matching_the_returned_criteria(): void
     {
         $state = new State(1337);
         $state->set('appId', 1337);
@@ -55,7 +73,7 @@ class StateManagerTest extends TestCase
     /**
      * @test
      */
-    public function it_returns_null_when_repository_does_not_find_for_given_criteria()
+    public function it_returns_null_when_repository_does_not_find_for_given_criteria(): void
     {
         $criteria = new Criteria(['appId' => 1337]);
 

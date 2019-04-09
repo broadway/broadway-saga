@@ -18,7 +18,7 @@ class CriteriaTest extends TestCase
     /**
      * @test
      */
-    public function it_exposes_the_comparisons()
+    public function it_exposes_the_comparisons(): void
     {
         $data = ['appId' => 42, 'companyId' => 21];
 

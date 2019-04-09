@@ -11,23 +11,30 @@
 
 namespace Broadway\Saga\Metadata;
 
+use Broadway\Saga\State\Criteria;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 
 class StaticallyConfiguredSagaMetadataTest extends TestCase
 {
+    /**
+     * @var Metadata
+     */
     private $metadata;
 
     public function setUp()
     {
         $this->metadata = new Metadata([
-            'StaticallyConfiguredSagaMetadataTestSagaTestEvent1' => function () { return 'criteria'; },
+            'StaticallyConfiguredSagaMetadataTestSagaTestEvent1' => static function (){
+                return new Criteria([]);
+            },
         ]);
     }
 
     /**
      * @test
      */
-    public function it_handles_an_event_if_its_specified_by_the_saga()
+    public function it_handles_an_event_if_its_specified_by_the_saga(): void
     {
         $event = new StaticallyConfiguredSagaMetadataTestSagaTestEvent1();
 
@@ -37,7 +44,7 @@ class StaticallyConfiguredSagaMetadataTest extends TestCase
     /**
      * @test
      */
-    public function it_does_not_handle_an_event_if_its_not_specified_by_the_saga()
+    public function it_does_not_handle_an_event_if_its_not_specified_by_the_saga(): void
     {
         $event = new StaticallyConfiguredSagaMetadataTestSagaTestEvent2();
 
@@ -47,18 +54,18 @@ class StaticallyConfiguredSagaMetadataTest extends TestCase
     /**
      * @test
      */
-    public function it_returns_the_criteria_for_a_configured_event()
+    public function it_returns_the_criteria_for_a_configured_event(): void
     {
         $event = new StaticallyConfiguredSagaMetadataTestSagaTestEvent1();
 
-        $this->assertEquals('criteria', $this->metadata->criteria($event));
+        $this->assertEquals(new Criteria([]), $this->metadata->criteria($event));
     }
 
     /**
      * @test
      * @expectedException RuntimeException
      */
-    public function it_throws_an_exception_if_there_is_no_criteria_for_a_given_event()
+    public function it_throws_an_exception_if_there_is_no_criteria_for_a_given_event(): void
     {
         $event = new StaticallyConfiguredSagaMetadataTestSagaTestEvent2();
 

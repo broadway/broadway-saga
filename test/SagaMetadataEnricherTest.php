@@ -14,11 +14,25 @@ namespace Broadway\Saga;
 use Broadway\Domain\Metadata;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class SagaMetadataEnricherTest
+ * @package Broadway\Saga
+ */
 class SagaMetadataEnricherTest extends TestCase
 {
+    /**
+     * @var SagaMetadataEnricher
+     */
     private $sagaMetadataEnricher;
+
+    /**
+     * @var Metadata
+     */
     private $metadata;
 
+    /**
+     *
+     */
     public function setUp()
     {
         $this->sagaMetadataEnricher = new SagaMetadataEnricher();
@@ -28,7 +42,7 @@ class SagaMetadataEnricherTest extends TestCase
     /**
      * @test
      */
-    public function it_stores_the_state()
+    public function it_stores_the_state(): void
     {
         $type = 'type';
         $id   = 'id';
@@ -43,7 +57,7 @@ class SagaMetadataEnricherTest extends TestCase
     /**
      * @test
      */
-    public function it_uses_the_latest_saga_data_it_received()
+    public function it_uses_the_latest_saga_data_it_received(): void
     {
         $this->sagaMetadataEnricher->postHandleSaga('type1', 'id1');
         $this->sagaMetadataEnricher->postHandleSaga('type2', 'id2');
@@ -57,7 +71,7 @@ class SagaMetadataEnricherTest extends TestCase
     /**
      * @test
      */
-    public function it_enriches_multiple_instances_of_metadata()
+    public function it_enriches_multiple_instances_of_metadata(): void
     {
         $this->sagaMetadataEnricher->postHandleSaga('type', 'id');
 
@@ -68,7 +82,12 @@ class SagaMetadataEnricherTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function enrich(Metadata $metadata)
+    /**
+     * @param Metadata $metadata
+     *
+     * @return Metadata
+     */
+    public function enrich(Metadata $metadata): Metadata
     {
         if (count($this->sagaData) === 0) {
             return $metadata;

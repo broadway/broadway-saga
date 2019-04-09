@@ -13,10 +13,20 @@ namespace Broadway\Saga;
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class StateTest
+ * @package Broadway\Saga
+ */
 class StateTest extends TestCase
 {
+    /**
+     * @var State
+     */
     private $state;
 
+    /**
+     *
+     */
     public function setUp()
     {
         $this->state = new State(42);
@@ -25,7 +35,7 @@ class StateTest extends TestCase
     /**
      * @test
      */
-    public function it_returns_null_if_key_is_not_set()
+    public function it_returns_null_if_key_is_not_set(): void
     {
         $this->assertNull($this->state->get('foo'));
     }
@@ -33,7 +43,7 @@ class StateTest extends TestCase
     /**
      * @test
      */
-    public function it_can_set_a_value()
+    public function it_can_set_a_value(): void
     {
         $this->state->set('foo', 'bar');
 
@@ -43,7 +53,7 @@ class StateTest extends TestCase
     /**
      * @test
      */
-    public function it_is_not_done_by_default()
+    public function it_is_not_done_by_default(): void
     {
         $this->assertFalse($this->state->isDone());
     }
@@ -51,7 +61,7 @@ class StateTest extends TestCase
     /**
      * @test
      */
-    public function it_can_be_set_as_done()
+    public function it_can_be_set_as_done(): void
     {
         $this->state->setDone();
 
@@ -61,7 +71,7 @@ class StateTest extends TestCase
     /**
      * @test
      */
-    public function a_previously_set_value_is_overridden()
+    public function a_previously_set_value_is_overridden(): void
     {
         $this->state->set('foo', 'bar');
         $this->state->set('foo', 'qux');
@@ -72,7 +82,7 @@ class StateTest extends TestCase
     /**
      * @test
      */
-    public function it_exposes_its_id()
+    public function it_exposes_its_id(): void
     {
         $this->assertEquals(42, $this->state->getId());
     }
@@ -80,7 +90,7 @@ class StateTest extends TestCase
     /**
      * @test
      */
-    public function it_can_be_serialized_and_deserialized_to_itself()
+    public function it_can_be_serialized_and_deserialized_to_itself(): void
     {
         $this->state->set('foo', 'bar');
         $state = State::deserialize($this->state->serialize());

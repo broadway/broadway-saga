@@ -20,10 +20,12 @@ interface MetadataInterface
      *
      * @return boolean True, if the saga can handle the event
      */
-    public function handles($event);
+    public function handles($event): bool ;
 
     /**
+     * @param $event
+     *
      * @return Criteria Criteria for the given event
      */
-    public function criteria($event);
+    public function criteria($event): ?Criteria;
 }

@@ -19,20 +19,48 @@ use Broadway\Saga\Metadata\StaticallyConfiguredSagaInterface;
 use Broadway\Saga\Metadata\StaticallyConfiguredSagaMetadataFactory;
 use Broadway\Saga\State\Criteria;
 use Broadway\Saga\State\InMemoryRepository;
-use Broadway\Saga\State\RepositoryInterface;
 use Broadway\Saga\State\StateManager;
+use Broadway\Saga\Testing\TraceableSagaStateRepository;
 use Broadway\UuidGenerator\Rfc4122\Version4Generator;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class MultipleSagaManagerTest
+ * @package Broadway\Saga
+ */
 class MultipleSagaManagerTest extends TestCase
 {
+    /**
+     * @var MultipleSagaManager
+     */
     private $manager;
+    /**
+     * @var TraceableSagaStateRepository
+     */
     private $repository;
+    /**
+     * @var mixed[]
+     */
     private $sagas;
+
+    /**
+     * @var StateManager
+     */
     private $stateManager;
+
+    /**
+     * @var StaticallyConfiguredSagaMetadataFactory
+     */
     private $metadataFactory;
+
+    /**
+     * @var TraceableEventDispatcher
+     */
     private $eventDispatcher;
 
+    /**
+     *
+     */
     public function setUp()
     {
         $this->repository      = new TraceableSagaStateRepository(new InMemoryRepository());
@@ -46,7 +74,7 @@ class MultipleSagaManagerTest extends TestCase
     /**
      * @test
      */
-    public function it_saves_the_modified_state()
+    public function it_saves_the_modified_state(): void
     {
         $s1 = new State(1);
         $s1->set('appId', 42);
@@ -64,7 +92,7 @@ class MultipleSagaManagerTest extends TestCase
     /**
      * @test
      */
-    public function it_removes_the_state_if_the_saga_is_done()
+    public function it_removes_the_state_if_the_saga_is_done(): void
     {
         $s1 = new State(1);
         $s1->set('appId', 42);
@@ -81,7 +109,7 @@ class MultipleSagaManagerTest extends TestCase
     /**
      * @test
      */
-    public function it_creates_and_passes_a_new_saga_state_instance_if_no_criteria_is_configured()
+    public function it_creates_and_passes_a_new_saga_state_instance_if_no_criteria_is_configured(): void
     {
         $this->repository->trace();
         $this->handleEvent($this->manager, new TestEvent2());
@@ -94,7 +122,7 @@ class MultipleSagaManagerTest extends TestCase
     /**
      * @test
      */
-    public function it_does_not_call_the_saga_if_it_is_not_configured_to_handle_an_event()
+    public function it_does_not_call_the_saga_if_it_is_not_configured_to_handle_an_event(): void
     {
         foreach ($this->sagas as $saga) {
             $this->assertFalse($saga->isCalled);
@@ -110,7 +138,7 @@ class MultipleSagaManagerTest extends TestCase
     /**
      * @test
      */
-    public function it_does_not_call_the_saga_when_no_state_is_found()
+    public function it_does_not_call_the_saga_when_no_state_is_found(): void
     {
         foreach ($this->sagas as $saga) {
             $this->assertFalse($saga->isCalled);
@@ -126,7 +154,7 @@ class MultipleSagaManagerTest extends TestCase
     /**
      * @test
      */
-    public function it_calls_all_sagas_configured_for_that_event()
+    public function it_calls_all_sagas_configured_for_that_event(): void
     {
         $sagas   = [new SagaManagerTestSaga(), new SagaManagerTestSaga()];
         $manager = $this->createManager($this->repository, $sagas, $this->stateManager, $this->metadataFactory, $this->eventDispatcher);
@@ -145,7 +173,7 @@ class MultipleSagaManagerTest extends TestCase
     /**
      * @test
      */
-    public function it_calls_all_sagas_configured_for_that_event_even_when_a_state_is_not_found_for_previous_saga()
+    public function it_calls_all_sagas_configured_for_that_event_even_when_a_state_is_not_found_for_previous_saga(): void
     {
         $s1 = new State(1);
         $s1->set('appId', 42);
@@ -164,7 +192,7 @@ class MultipleSagaManagerTest extends TestCase
     /**
      * @test
      */
-    public function it_gives_every_saga_an_own_stage_even_when_the_criteria_are_the_same()
+    public function it_gives_every_saga_an_own_stage_even_when_the_criteria_are_the_same(): void
     {
         $s1 = new State(1);
         $s1->set('appId', 42);
@@ -189,7 +217,7 @@ class MultipleSagaManagerTest extends TestCase
     /**
      * @test
      */
-    public function it_dispatches_events()
+    public function it_dispatches_events(): void
     {
         $stateId = 1;
         $s1      = new State($stateId);
@@ -212,7 +240,7 @@ class MultipleSagaManagerTest extends TestCase
     /**
      * @test
      */
-    public function it_dispatches_events_when_no_state_is_found()
+    public function it_dispatches_events_when_no_state_is_found(): void
     {
         $this->handleEvent($this->manager, new TestEvent2());
 
@@ -232,7 +260,7 @@ class MultipleSagaManagerTest extends TestCase
     /**
      * @test
      */
-    public function it_does_not_dispatch_an_event_when_no_saga_is_called()
+    public function it_does_not_dispatch_an_event_when_no_saga_is_called(): void
     {
         $this->handleEvent($this->manager, new TestEvent1());
 
@@ -240,21 +268,48 @@ class MultipleSagaManagerTest extends TestCase
         $this->assertCount(0, $dispatchedEvents);
     }
 
-    private function createManager(TraceableSagaStateRepository $repository, array $sagas, StateManager $stateManager, StaticallyConfiguredSagaMetadataFactory $metadataFactory, TraceableEventDispatcher $dispatcher)
+    /**
+     * @param TraceableSagaStateRepository $repository
+     * @param array $sagas
+     * @param StateManager $stateManager
+     * @param StaticallyConfiguredSagaMetadataFactory $metadataFactory
+     * @param TraceableEventDispatcher $dispatcher
+     *
+     * @return MultipleSagaManager
+     */
+    private function createManager(TraceableSagaStateRepository $repository, array $sagas, StateManager $stateManager, StaticallyConfiguredSagaMetadataFactory $metadataFactory, TraceableEventDispatcher $dispatcher): MultipleSagaManager
     {
         return new MultipleSagaManager($repository, $sagas, $stateManager, $metadataFactory, $dispatcher);
     }
 
-    private function handleEvent($manager, $event)
+    /**
+     * @param MultipleSagaManager $manager
+     * @param $event
+     */
+    private function handleEvent(MultipleSagaManager $manager, $event): void
     {
         $manager->handle(DomainMessage::recordNow(1, 0, new Metadata([]), $event));
     }
 }
 
+/**
+ * Class SagaManagerTestSaga
+ * @package Broadway\Saga
+ */
 class SagaManagerTestSaga implements StaticallyConfiguredSagaInterface
 {
+    /**
+     * @var bool
+     */
     public $isCalled = false;
-    public function handle($event, State $state = null)
+
+    /**
+     * @param mixed $event
+     * @param State|null $state
+     *
+     * @return State
+     */
+    public function handle($event, State $state = null): State
     {
         $this->isCalled = true;
 
@@ -269,71 +324,52 @@ class SagaManagerTestSaga implements StaticallyConfiguredSagaInterface
         return $state;
     }
 
-    public static function configuration()
+    /**
+     * @return array
+     */
+    public static function configuration(): array
     {
         return [
-            'TestEvent1'    => function () { return new Criteria(['appId' => 42]); },
-            'TestEvent2'                                                  => function () { },
-            'TestEventDone'                                               => function () { return new Criteria(['appId' => 42]); },
+            'TestEvent1'    => static function (){
+                return new Criteria(['appId' => 42]);
+            },
+            'TestEvent2'    => function (){
+            },
+            'TestEventDone' => static function (){
+                return new Criteria(['appId' => 42]);
+            },
         ];
     }
 }
 
+/**
+ * Class TestEvent1
+ * @package Broadway\Saga
+ */
 class TestEvent1
 {
 }
+
+/**
+ * Class TestEvent2
+ * @package Broadway\Saga
+ */
 class TestEvent2
 {
 }
+
+/**
+ * Class TestEvent3
+ * @package Broadway\Saga
+ */
 class TestEvent3
 {
 }
+
+/**
+ * Class TestEventDone
+ * @package Broadway\Saga
+ */
 class TestEventDone
 {
-}
-
-class TraceableSagaStateRepository implements RepositoryInterface
-{
-    private $tracing = false;
-    private $repository;
-    private $saved   = [];
-    private $removed = [];
-
-    public function __construct(RepositoryInterface $repository)
-    {
-        $this->repository = $repository;
-    }
-
-    public function findOneBy(Criteria $criteria, $sagaId)
-    {
-        return $this->repository->findOneBy($criteria, $sagaId);
-    }
-
-    public function getSaved()
-    {
-        return $this->saved;
-    }
-
-    public function save(State $state, $sagaId)
-    {
-        $this->repository->save($state, $sagaId);
-
-        if ($this->tracing) {
-            if ($state->isDone()) {
-                $this->removed[] = $state;
-            } else {
-                $this->saved[] = $state;
-            }
-        }
-    }
-
-    public function trace()
-    {
-        $this->tracing = true;
-    }
-
-    public function getRemoved()
-    {
-        return $this->removed;
-    }
 }

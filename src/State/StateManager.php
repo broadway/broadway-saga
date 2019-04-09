@@ -14,11 +14,28 @@ namespace Broadway\Saga\State;
 use Broadway\Saga\State;
 use Broadway\UuidGenerator\UuidGeneratorInterface;
 
+/**
+ * Class StateManager
+ * @package Broadway\Saga\State
+ */
 class StateManager implements StateManagerInterface
 {
+    /**
+     * @var RepositoryInterface
+     */
     private $repository;
+
+    /**
+     * @var UuidGeneratorInterface
+     */
     private $generator;
 
+    /**
+     * StateManager constructor.
+     *
+     * @param RepositoryInterface $repository
+     * @param UuidGeneratorInterface $generator
+     */
     public function __construct(RepositoryInterface $repository, UuidGeneratorInterface $generator)
     {
         $this->repository = $repository;
@@ -28,7 +45,7 @@ class StateManager implements StateManagerInterface
     /**
      * {@inheritDoc}
      */
-    public function findOneBy($criteria, $sagaId)
+    public function findOneBy($criteria, $sagaId): ?State
     {
         // TODO: Use CreationPolicy to determine whether and how a new state should be created
         if ($criteria instanceof Criteria) {

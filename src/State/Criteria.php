@@ -29,7 +29,7 @@ class Criteria
     /**
      * @return array
      */
-    public function getComparisons()
+    public function getComparisons(): array
     {
         return $this->comparisons;
     }

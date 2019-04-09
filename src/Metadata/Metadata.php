@@ -12,6 +12,7 @@
 namespace Broadway\Saga\Metadata;
 
 use Broadway\Saga\MetadataInterface;
+use Broadway\Saga\State\Criteria;
 use RuntimeException;
 
 class Metadata implements MetadataInterface
@@ -29,7 +30,7 @@ class Metadata implements MetadataInterface
     /**
      * {@inheritDoc}
      */
-    public function handles($event)
+    public function handles($event): bool
     {
         $eventName = $this->getClassName($event);
 
@@ -39,7 +40,7 @@ class Metadata implements MetadataInterface
     /**
      * {@inheritDoc}
      */
-    public function criteria($event)
+    public function criteria($event): ?Criteria
     {
         $eventName = $this->getClassName($event);
 

@@ -22,10 +22,40 @@ use Broadway\Saga\State\StateManagerInterface;
  */
 class MultipleSagaManager implements SagaManagerInterface
 {
+    /**
+     * @var RepositoryInterface
+     */
     private $repository;
+
+    /**
+     * @var StateManagerInterface
+     */
     private $stateManager;
+
+    /**
+     * @var EventDispatcher
+     */
     private $eventDispatcher;
 
+    /**
+     * @var string[]
+     */
+    private $sagas;
+
+    /**
+     * @var MetadataFactoryInterface
+     */
+    private $metadataFactory;
+
+    /**
+     * MultipleSagaManager constructor.
+     *
+     * @param RepositoryInterface $repository
+     * @param array $sagas
+     * @param StateManagerInterface $stateManager
+     * @param MetadataFactoryInterface $metadataFactory
+     * @param EventDispatcher $eventDispatcher
+     */
     public function __construct(
         RepositoryInterface $repository,
         array $sagas,
@@ -42,8 +72,10 @@ class MultipleSagaManager implements SagaManagerInterface
 
     /**
      * Handles the event by delegating it to Saga('s) related to the event.
+     *
+     * @param DomainMessage $domainMessage
      */
-    public function handle(DomainMessage $domainMessage)
+    public function handle(DomainMessage $domainMessage): void
     {
         $event = $domainMessage->getPayload();
 
