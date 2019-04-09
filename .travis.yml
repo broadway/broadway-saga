@@ -5,15 +5,19 @@ matrix:
     - php: 7.0
     - php: 7.1
     - php: 7.2
+    - php: hhvm
   fast_finish: true
+  allow_failures:
+    - php: hhvm
 
 before_install:
   # Disable XDebug speed up test execution.
   - phpenv config-rm xdebug.ini || return 0
 
 install:
+  - travis_retry composer self-update
   - composer install
-  - composer info
+  - composer info -i
 
 script:
   - vendor/bin/phpunit
@@ -22,3 +26,6 @@ script:
 branches:
   only:
     - master
+
+services:
+  - mongodb
