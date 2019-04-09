@@ -8,7 +8,7 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="false"
-         syntaxCheck="false"
+         syntaxCheck="true"
          bootstrap="vendor/autoload.php"
 >
   <testsuites>
@@ -22,4 +22,8 @@
       <directory suffix=".php">./src/</directory>
     </whitelist>
   </filter>
+  <logging>
+    <log type="coverage-php" target="build/coverage.cov"/>
+    <log type="coverage-clover" target="build/clover.xml"/>
+  </logging>
 </phpunit>
