@@ -2,11 +2,6 @@
   "name": "broadway/broadway-saga",
   "description": "Proof-of-concept component providing saga functionality to broadway/broadway.",
   "license": "MIT",
-  "require": {
-    "php": ">=7.0",
-    "broadway/broadway": "^2.0",
-    "beberlei/assert": "~2.0 || ~3.0"
-  },
   "authors": [
     {
       "name": "Alexander",
@@ -33,12 +28,17 @@
       "homepage": "http://labs.qandidate.com/"
     }
   ],
+  "require": {
+    "php": ">=7.0",
+    "broadway/broadway": "^2.0",
+    "beberlei/assert": "~2.0 || ~3.0"
+  },
   "require-dev": {
     "phpunit/phpunit": "^6.0",
     "ramsey/uuid": "^3.3"
   },
   "suggest": {
-    "broadway/saga-state-mongodb": "For persisting saga states in MongoDB",
+    "broadway/saga-state-mongodb": "For persisting saga states in MongoDB"
   },
   "autoload": {
     "psr-4": {
