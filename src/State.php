@@ -40,7 +40,7 @@ class State implements Serializable
      * @param string $key
      * @param mixed  $value
      */
-    public function set($key, $value)
+    public function set($key, $value): void
     {
         $this->values[$key] = $value;
     }
@@ -62,7 +62,7 @@ class State implements Serializable
     /**
      * @return string
      */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
@@ -70,7 +70,7 @@ class State implements Serializable
     /**
      * Mark the saga as done.
      */
-    public function setDone()
+    public function setDone(): void
     {
         $this->done = true;
     }
@@ -78,7 +78,7 @@ class State implements Serializable
     /**
      * @return boolean
      */
-    public function isDone()
+    public function isDone(): bool
     {
         return $this->done;
     }

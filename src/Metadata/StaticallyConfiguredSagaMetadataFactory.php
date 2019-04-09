@@ -11,14 +11,19 @@
 
 namespace Broadway\Saga\Metadata;
 
+use Broadway\Saga\MetadataInterface;
 use RuntimeException;
 
+/**
+ * Class StaticallyConfiguredSagaMetadataFactory
+ * @package Broadway\Saga\Metadata
+ */
 class StaticallyConfiguredSagaMetadataFactory implements MetadataFactoryInterface
 {
     /**
      * {@inheritDoc}
      */
-    public function create($saga)
+    public function create($saga): MetadataInterface
     {
         $requiredInterface = StaticallyConfiguredSagaInterface::class;
 
@@ -28,6 +33,7 @@ class StaticallyConfiguredSagaMetadataFactory implements MetadataFactoryInterfac
             );
         }
 
+        /** @var StaticallyConfiguredSagaInterface $saga */
         $criteria = $saga::configuration();
 
         return new Metadata($criteria);

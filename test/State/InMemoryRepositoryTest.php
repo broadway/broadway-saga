@@ -13,9 +13,16 @@ namespace Broadway\Saga\State;
 
 use Broadway\Saga\State\Testing\AbstractRepositoryTest;
 
+/**
+ * Class InMemoryRepositoryTest
+ * @package Broadway\Saga\State
+ */
 class InMemoryRepositoryTest extends AbstractRepositoryTest
 {
-    protected function createRepository()
+    /**
+     * @return RepositoryInterface
+     */
+    protected function createRepository(): RepositoryInterface
     {
         return new InMemoryRepository();
     }

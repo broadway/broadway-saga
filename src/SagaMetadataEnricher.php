@@ -14,15 +14,31 @@ namespace Broadway\Saga;
 use Broadway\Domain\Metadata;
 use Broadway\EventSourcing\MetadataEnrichment\MetadataEnricher;
 
+/**
+ * Class SagaMetadataEnricher
+ * @package Broadway\Saga
+ */
 class SagaMetadataEnricher implements MetadataEnricher
 {
+    /**
+     * @var array
+     */
     private $sagaData = [];
 
-    public function postHandleSaga($type, $id)
+    /**
+     * @param $type
+     * @param $id
+     */
+    public function postHandleSaga($type, $id): void
     {
         $this->sagaData = ['type' => $type, 'state_id' => $id];
     }
 
+    /**
+     * @param Metadata $metadata
+     *
+     * @return Metadata
+     */
     public function enrich(Metadata $metadata): Metadata
     {
         if (count($this->sagaData) === 0) {

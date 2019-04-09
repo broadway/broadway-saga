@@ -11,6 +11,8 @@
 
 namespace Broadway\Saga\Metadata;
 
+use Broadway\Saga\MetadataInterface;
+
 interface MetadataFactoryInterface
 {
     /**
@@ -18,7 +20,7 @@ interface MetadataFactoryInterface
      *
      * @param string $saga
      *
-     * @return \Broadway\Saga\MetadataInterface
+     * @return MetadataInterface
      */
-    public function create($saga);
+    public function create($saga): MetadataInterface;
 }

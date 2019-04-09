@@ -13,14 +13,21 @@ namespace Broadway\Saga\State;
 
 use Broadway\Saga\State;
 
+/**
+ * Class InMemoryRepository
+ * @package Broadway\Saga\State
+ */
 class InMemoryRepository implements RepositoryInterface
 {
+    /**
+     * @var mixed[]
+     */
     private $states = [];
 
     /**
      * {@inheritDoc}
      */
-    public function findOneBy(Criteria $criteria, $sagaId)
+    public function findOneBy(Criteria $criteria, $sagaId): ?State
     {
         if (! isset($this->states[$sagaId])) {
             return null;
@@ -29,10 +36,10 @@ class InMemoryRepository implements RepositoryInterface
         $states = $this->states[$sagaId];
 
         foreach ($criteria->getComparisons() as $key => $value) {
-            $states = array_filter($states, function ($elem) use ($key, $value) {
+            $states = array_filter($states, static function (State $elem) use ($key, $value) {
                 $stateValue = $elem->get($key);
 
-                return is_array($stateValue) ? in_array($value, $stateValue) : $value === $stateValue;
+                return is_array($stateValue) ? in_array($value, $stateValue, true) : $value === $stateValue;
             });
         }
 

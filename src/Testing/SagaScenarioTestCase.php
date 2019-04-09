@@ -22,6 +22,10 @@ use Broadway\Saga\State\StateManager;
 use Broadway\UuidGenerator\Rfc4122\Version4Generator;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class SagaScenarioTestCase
+ * @package Broadway\Saga\Testing
+ */
 abstract class SagaScenarioTestCase extends TestCase
 {
     /**
@@ -36,7 +40,7 @@ abstract class SagaScenarioTestCase extends TestCase
      *
      * @return SagaInterface
      */
-    abstract protected function createSaga(CommandBus $commandBus);
+    abstract protected function createSaga(CommandBus $commandBus): SagaInterface;
 
     protected function setUp()
     {
@@ -45,7 +49,10 @@ abstract class SagaScenarioTestCase extends TestCase
         $this->scenario = $this->createScenario();
     }
 
-    protected function createScenario()
+    /**
+     * @return Scenario
+     */
+    protected function createScenario(): Scenario
     {
         $traceableCommandBus = new TraceableCommandBus();
         $saga                = $this->createSaga($traceableCommandBus);

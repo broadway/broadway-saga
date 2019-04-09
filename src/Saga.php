@@ -11,17 +11,23 @@
 
 namespace Broadway\Saga;
 
+use BadMethodCallException;
+
+/**
+ * Class Saga
+ * @package Broadway\Saga
+ */
 abstract class Saga implements SagaInterface
 {
     /**
      * {@inheritDoc}
      */
-    public function handle($event, State $state)
+    public function handle($event, State $state): State
     {
         $method = $this->getHandleMethod($event);
 
         if (! method_exists($this, $method)) {
-            throw new \BadMethodCallException(
+            throw new BadMethodCallException(
                 sprintf(
                     "No handle method '%s' for event '%s'.",
                     $method,
@@ -33,7 +39,12 @@ abstract class Saga implements SagaInterface
         return $this->$method($event, $state);
     }
 
-    private function getHandleMethod($event)
+    /**
+     * @param $event
+     *
+     * @return string
+     */
+    private function getHandleMethod($event): string
     {
         $classParts = explode('\\', get_class($event));
 
