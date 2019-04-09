@@ -1,9 +1,12 @@
+
 language: php
 
-php:
-  - 7.1
-  - 7.2
-  - 7.3
+matrix:
+  include:
+    - php: 7.1
+    - php: 7.2
+    - php: 7.3
+  fast_finish: true
 
 before_install:
   # Disable XDebug speed up test execution.
@@ -22,10 +25,6 @@ install:
 script:
   - vendor/bin/phpunit
   - git log $(git describe --abbrev=0 --tags)...HEAD --no-merges --pretty=format:"* [%h](http://github.com/${TRAVIS_REPO_SLUG}/commit/%H) %s (%cN)"
-
-branches:
-  only:
-    - master
 
 services:
   - mongodb
