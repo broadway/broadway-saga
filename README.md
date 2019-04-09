@@ -1,4 +1,4 @@
-broadway/broadway-saga
+adgoal/broadway-saga
 ======================
 
 [![Build Status](https://travis-ci.org/Adgoal/broadway-saga.svg?branch=master)](https://travis-ci.org/Adgoal/broadway-saga)
@@ -14,5 +14,5 @@ can be used to wake up and start sagas.
 # Installation
 
 ```
-$ composer require broadway/broadway-saga
+$ composer require adgoal/broadway-saga
 ```
