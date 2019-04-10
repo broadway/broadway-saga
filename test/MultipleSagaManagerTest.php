@@ -305,8 +305,8 @@ class SagaManagerTestSaga implements StaticallyConfiguredSagaInterface
     public $isCalled = false;
 
     /**
-     * @param mixed $event
      * @param State|null $state
+     * @param DomainMessage $domainMessage
      *
      * @return State
      */
