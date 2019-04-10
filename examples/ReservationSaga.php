@@ -18,11 +18,26 @@ use Broadway\Saga\State;
 use Broadway\Saga\State\Criteria;
 use Broadway\UuidGenerator\UuidGeneratorInterface;
 
+/**
+ * Class ReservationSaga
+ */
 class ReservationSaga extends Saga implements StaticallyConfiguredSagaInterface
 {
+    /**
+     * @var CommandBus
+     */
     private $commandBus;
+    /**
+     * @var UuidGeneratorInterface
+     */
     private $uuidGenerator;
 
+    /**
+     * ReservationSaga constructor.
+     *
+     * @param CommandBus $commandBus
+     * @param UuidGeneratorInterface $uuidGenerator
+     */
     public function __construct(
         CommandBus $commandBus,
         UuidGeneratorInterface $uuidGenerator
@@ -31,6 +46,9 @@ class ReservationSaga extends Saga implements StaticallyConfiguredSagaInterface
         $this->uuidGenerator = $uuidGenerator;
     }
 
+    /**
+     * @return array
+     */
     public static function configuration()
     {
         return [
@@ -52,7 +70,13 @@ class ReservationSaga extends Saga implements StaticallyConfiguredSagaInterface
         ];
     }
 
-    public function handleOrderPlaced(OrderPlaced $event, State $state)
+    /**
+     * @param State $state
+     * @param OrderPlaced $event
+     *
+     * @return State
+     */
+    public function handleOrderPlaced(State $state, OrderPlaced $event)
     {
         // keep the order id, for reference in `handleReservationAccepted()` and `handleReservationRejected()`
         $state->set('orderId', $event->orderId());
@@ -68,7 +92,13 @@ class ReservationSaga extends Saga implements StaticallyConfiguredSagaInterface
         return $state;
     }
 
-    public function handleReservationAccepted(ReservationAccepted $event, State $state)
+    /**
+     * @param State $state
+     * @param ReservationAccepted $event
+     *
+     * @return State
+     */
+    public function handleReservationAccepted(State $state, ReservationAccepted $event)
     {
         // the seat reservation for the given order is has been accepted, mark the order as booked
         $command = new MarkOrderAsBooked($state->get('orderId'));
@@ -80,7 +110,13 @@ class ReservationSaga extends Saga implements StaticallyConfiguredSagaInterface
         return $state;
     }
 
-    public function handleReservationRejected(ReservationRejected $event, State $state)
+    /**
+     * @param State $state
+     * @param ReservationRejected $event
+     *
+     * @return State
+     */
+    public function handleReservationRejected(State $state, ReservationRejected $event)
     {
         // the seat reservation for the given order is has been rejected, reject the order as well
         $command = new RejectOrder($state->get('orderId'));
@@ -98,20 +134,38 @@ class ReservationSaga extends Saga implements StaticallyConfiguredSagaInterface
  */
 class OrderPlaced
 {
+    /**
+     * @var
+     */
     private $orderId;
+    /**
+     * @var
+     */
     private $numberOfSeats;
 
+    /**
+     * OrderPlaced constructor.
+     *
+     * @param $orderId
+     * @param $numberOfSeats
+     */
     public function __construct($orderId, $numberOfSeats)
     {
         $this->orderId       = $orderId;
         $this->numberOfSeats = $numberOfSeats;
     }
 
+    /**
+     * @return mixed
+     */
     public function orderId()
     {
         return $this->orderId;
     }
 
+    /**
+     * @return mixed
+     */
     public function numberOfSeats()
     {
         return $this->numberOfSeats;
@@ -123,20 +177,38 @@ class OrderPlaced
  */
 class MakeSeatReservation
 {
+    /**
+     * @var
+     */
     private $reservationId;
+    /**
+     * @var
+     */
     private $numberOfSeats;
 
+    /**
+     * MakeSeatReservation constructor.
+     *
+     * @param $reservationId
+     * @param $numberOfSeats
+     */
     public function __construct($reservationId, $numberOfSeats)
     {
         $this->reservationId = $reservationId;
         $this->numberOfSeats = $numberOfSeats;
     }
 
+    /**
+     * @return mixed
+     */
     public function reservationId()
     {
         return $this->reservationId;
     }
 
+    /**
+     * @return mixed
+     */
     public function numberOfSeats()
     {
         return $this->numberOfSeats;
@@ -148,13 +220,24 @@ class MakeSeatReservation
  */
 class ReservationAccepted
 {
+    /**
+     * @var
+     */
     private $reservationId;
 
+    /**
+     * ReservationAccepted constructor.
+     *
+     * @param $reservationId
+     */
     public function __construct($reservationId)
     {
         $this->reservationId = $reservationId;
     }
 
+    /**
+     * @return mixed
+     */
     public function reservationId()
     {
         return $this->reservationId;
@@ -166,13 +249,24 @@ class ReservationAccepted
  */
 class ReservationRejected
 {
+    /**
+     * @var
+     */
     private $reservationId;
 
+    /**
+     * ReservationRejected constructor.
+     *
+     * @param $reservationId
+     */
     public function __construct($reservationId)
     {
         $this->reservationId = $reservationId;
     }
 
+    /**
+     * @return mixed
+     */
     public function reservationId()
     {
         return $this->reservationId;
@@ -184,8 +278,16 @@ class ReservationRejected
  */
 class MarkOrderAsBooked
 {
+    /**
+     * @var
+     */
     private $orderId;
 
+    /**
+     * MarkOrderAsBooked constructor.
+     *
+     * @param $orderId
+     */
     public function __construct($orderId)
     {
         $this->orderId = $orderId;
@@ -197,8 +299,16 @@ class MarkOrderAsBooked
  */
 class RejectOrder
 {
+    /**
+     * @var
+     */
     private $orderId;
 
+    /**
+     * RejectOrder constructor.
+     *
+     * @param $orderId
+     */
     public function __construct($orderId)
     {
         $this->orderId = $orderId;

@@ -11,6 +11,8 @@
 
 namespace Broadway\Saga;
 
+use Broadway\Domain\DomainMessage;
+
 /**
  * Interface SagaInterface
  * @package Broadway\Saga
@@ -18,11 +20,10 @@ namespace Broadway\Saga;
 interface SagaInterface
 {
     /**
-     * @param mixed $event
-     *
      * @param State $state
+     * @param DomainMessage $domainMessage
      *
      * @return State
      */
-    public function handle($event, State $state): State;
+    public function handle(State $state, DomainMessage $domainMessage): State;
 }
