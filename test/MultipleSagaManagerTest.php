@@ -19,6 +19,7 @@ use Broadway\Saga\Metadata\StaticallyConfiguredSagaInterface;
 use Broadway\Saga\Metadata\StaticallyConfiguredSagaMetadataFactory;
 use Broadway\Saga\State\Criteria;
 use Broadway\Saga\State\InMemoryRepository;
+use Broadway\Saga\State\RepositoryInterface;
 use Broadway\Saga\State\StateManager;
 use Broadway\Saga\Testing\TraceableSagaStateRepository;
 use Broadway\UuidGenerator\Rfc4122\Version4Generator;
@@ -304,14 +305,15 @@ class SagaManagerTestSaga implements StaticallyConfiguredSagaInterface
     public $isCalled = false;
 
     /**
-     * @param mixed $event
      * @param State|null $state
+     * @param DomainMessage $domainMessage
      *
      * @return State
      */
-    public function handle($event, State $state = null): State
+    public function handle(State $state, DomainMessage $domainMessage): State
     {
         $this->isCalled = true;
+        $event = $domainMessage->getPayload();
 
         if ($event instanceof TestEvent1) {
             $state->set('event', 'testevent1');

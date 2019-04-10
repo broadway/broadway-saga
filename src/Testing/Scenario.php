@@ -44,6 +44,11 @@ class Scenario
     private $playhead;
 
     /**
+     * @var int
+     */
+    private $aggregateId;
+
+    /**
      * Scenario constructor.
      *
      * @param TestCase $testCase
@@ -58,7 +63,20 @@ class Scenario
         $this->testCase            = $testCase;
         $this->sagaManager         = $sagaManager;
         $this->traceableCommandBus = $traceableCommandBus;
+        $this->aggregateId         = 1;
         $this->playhead            = -1;
+    }
+
+    /**
+     * @param string $aggregateId
+     *
+     * @return Scenario
+     */
+    public function withAggregateId($aggregateId)
+    {
+        $this->aggregateId = $aggregateId;
+
+        return $this;
     }
 
     /**
@@ -110,6 +128,6 @@ class Scenario
     {
         $this->playhead++;
 
-        return DomainMessage::recordNow(1, $this->playhead, new Metadata([]), $event);
+        return DomainMessage::recordNow($this->aggregateId, $this->playhead, new Metadata([]), $event);
     }
 }
