@@ -49,19 +49,19 @@ class ReservationSaga extends Saga implements StaticallyConfiguredSagaInterface
     /**
      * @return array
      */
-    public static function configuration()
+    public static function configuration(): array
     {
         return [
-            'OrderPlaced' => function (OrderPlaced $event) {
+            'OrderPlaced' => static function (OrderPlaced $event) {
                 return null; // no criteria, start of a new saga
             },
-            'ReservationAccepted' => function (ReservationAccepted $event) {
+            'ReservationAccepted' => static function (ReservationAccepted $event) {
                 // return a Criteria object to fetch the State of this saga
                 return new Criteria([
                     'reservationId' => $event->reservationId()
                 ]);
             },
-            'ReservationRejected' => function (ReservationRejected $event) {
+            'ReservationRejected' => static function (ReservationRejected $event) {
                 // return a Criteria object to fetch the State of this saga
                 return new Criteria([
                     'reservationId' => $event->reservationId()
@@ -76,7 +76,7 @@ class ReservationSaga extends Saga implements StaticallyConfiguredSagaInterface
      *
      * @return State
      */
-    public function handleOrderPlaced(State $state, OrderPlaced $event)
+    public function handleOrderPlaced(State $state, OrderPlaced $event): State
     {
         // keep the order id, for reference in `handleReservationAccepted()` and `handleReservationRejected()`
         $state->set('orderId', $event->orderId());
@@ -98,7 +98,7 @@ class ReservationSaga extends Saga implements StaticallyConfiguredSagaInterface
      *
      * @return State
      */
-    public function handleReservationAccepted(State $state, ReservationAccepted $event)
+    public function handleReservationAccepted(State $state, ReservationAccepted $event): State
     {
         // the seat reservation for the given order is has been accepted, mark the order as booked
         $command = new MarkOrderAsBooked($state->get('orderId'));
@@ -116,7 +116,7 @@ class ReservationSaga extends Saga implements StaticallyConfiguredSagaInterface
      *
      * @return State
      */
-    public function handleReservationRejected(State $state, ReservationRejected $event)
+    public function handleReservationRejected(State $state, ReservationRejected $event): State
     {
         // the seat reservation for the given order is has been rejected, reject the order as well
         $command = new RejectOrder($state->get('orderId'));

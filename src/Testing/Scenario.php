@@ -72,7 +72,7 @@ class Scenario
      *
      * @return Scenario
      */
-    public function withAggregateId($aggregateId)
+    public function withAggregateId($aggregateId): Scenario
     {
         $this->aggregateId = $aggregateId;
 

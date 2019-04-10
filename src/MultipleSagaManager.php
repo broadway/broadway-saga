@@ -77,7 +77,7 @@ class MultipleSagaManager implements SagaManagerInterface
      */
     public function handle(DomainMessage $domainMessage): void
     {
-        $event = $domainMessage->getPayload();
+        $domainMessage->getPayload();
 
         /** @var Saga $saga */
         foreach ($this->sagas as $sagaType => $saga) {

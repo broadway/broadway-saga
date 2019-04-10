@@ -19,7 +19,6 @@ use Broadway\Saga\Metadata\StaticallyConfiguredSagaInterface;
 use Broadway\Saga\Metadata\StaticallyConfiguredSagaMetadataFactory;
 use Broadway\Saga\State\Criteria;
 use Broadway\Saga\State\InMemoryRepository;
-use Broadway\Saga\State\RepositoryInterface;
 use Broadway\Saga\State\StateManager;
 use Broadway\Saga\Testing\TraceableSagaStateRepository;
 use Broadway\UuidGenerator\Rfc4122\Version4Generator;
