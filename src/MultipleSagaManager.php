@@ -43,7 +43,7 @@ class MultipleSagaManager implements SagaManagerInterface
     /**
      * Handles the event by delegating it to Saga('s) related to the event.
      */
-    public function handle(DomainMessage $domainMessage)
+    public function handle(DomainMessage $domainMessage): void
     {
         $event = $domainMessage->getPayload();
 
