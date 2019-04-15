@@ -17,13 +17,16 @@ use BadMethodCallException;
  * Class Saga
  * @package Broadway\Saga
  */
+use Broadway\Domain\DomainMessage;
+
 abstract class Saga implements SagaInterface
 {
     /**
      * {@inheritDoc}
      */
-    public function handle($event, State $state): State
+    public function handle(State $state, DomainMessage $domainMessage): State
     {
+        $event = $domainMessage->getPayload();
         $method = $this->getHandleMethod($event);
 
         if (! method_exists($this, $method)) {
@@ -36,7 +39,7 @@ abstract class Saga implements SagaInterface
             );
         }
 
-        return $this->$method($event, $state);
+        return $this->$method($state, $event, $domainMessage);
     }
 
     /**

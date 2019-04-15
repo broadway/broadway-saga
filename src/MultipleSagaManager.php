@@ -77,16 +77,16 @@ class MultipleSagaManager implements SagaManagerInterface
      */
     public function handle(DomainMessage $domainMessage): void
     {
-        $event = $domainMessage->getPayload();
 
+        /** @var Saga $saga */
         foreach ($this->sagas as $sagaType => $saga) {
             $metadata = $this->metadataFactory->create($saga);
 
-            if (! $metadata->handles($event)) {
+            if (! $metadata->handles($domainMessage)) {
                 continue;
             }
 
-            $state = $this->stateManager->findOneBy($metadata->criteria($event), $sagaType);
+            $state = $this->stateManager->findOneBy($metadata->criteria($domainMessage), $sagaType);
 
             if (null === $state) {
                 continue;
@@ -96,7 +96,7 @@ class MultipleSagaManager implements SagaManagerInterface
                 [$sagaType, $state->getId()]
             );
 
-            $newState = $saga->handle($event, $state);
+            $newState = $saga->handle($state, $domainMessage);
 
             $this->eventDispatcher->dispatch(
                 SagaManagerInterface::EVENT_POST_HANDLE,

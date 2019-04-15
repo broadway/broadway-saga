@@ -16,8 +16,17 @@ use Broadway\Saga\SagaInterface;
 use Broadway\Saga\Testing\SagaScenarioTestCase;
 use Broadway\UuidGenerator\Testing\MockUuidSequenceGenerator;
 
+/**
+ * Class ReservationSagaTest'
+ * @covers ReservationSaga
+ */
 class ReservationSagaTest extends SagaScenarioTestCase
 {
+    /**
+     * @param CommandBus $commandBus
+     *
+     * @return SagaInterface
+     */
     protected function createSaga(CommandBus $commandBus): SagaInterface
     {
         return new ReservationSaga($commandBus, new MockUuidSequenceGenerator(
@@ -30,7 +39,7 @@ class ReservationSagaTest extends SagaScenarioTestCase
     /**
      * @test
      */
-    public function it_makes_a_seat_reservation_when_an_order_was_placed()
+    public function it_makes_a_seat_reservation_when_an_order_was_placed(): void
     {
         $this->scenario
             ->when(new OrderPlaced('9d66f760-29f7-11e5-a239-0002a5d5c51b', 5))
@@ -41,8 +50,20 @@ class ReservationSagaTest extends SagaScenarioTestCase
 
     /**
      * @test
+     * @covers \Broadway\Saga\Saga
      */
-    public function it_marks_the_order_as_booked_when_the_seat_reservation_was_accepted()
+    public function badMethodCallExceptionTest(): void
+    {
+        $this->expectException(BadMethodCallException::class);
+        $this->scenario
+            ->when(new BadMethodCall('bf142ea0-29f7-11e5-9d3f-0002a5d5c51b'))
+            ->then([]);
+    }
+
+    /**
+     * @test
+     */
+    public function it_marks_the_order_as_booked_when_the_seat_reservation_was_accepted(): void
     {
         $this->scenario
             ->given([
@@ -57,7 +78,7 @@ class ReservationSagaTest extends SagaScenarioTestCase
     /**
      * @test
      */
-    public function it_rejects_the_order_when_the_seat_reservation_was_rejected()
+    public function it_rejects_the_order_when_the_seat_reservation_was_rejected(): void
     {
         $this->scenario
             ->given([

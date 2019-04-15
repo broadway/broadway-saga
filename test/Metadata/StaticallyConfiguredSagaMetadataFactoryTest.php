@@ -11,10 +11,16 @@
 
 namespace Broadway\Saga\Metadata;
 
+use Broadway\Domain\DomainMessage;
 use Broadway\Saga\MetadataInterface;
+use Broadway\Saga\State;
 use Broadway\Saga\State\Criteria;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class StaticallyConfiguredSagaMetadataFactoryTest
+ * @package Broadway\Saga\Metadata
+ */
 class StaticallyConfiguredSagaMetadataFactoryTest extends TestCase
 {
     /**
@@ -22,31 +28,57 @@ class StaticallyConfiguredSagaMetadataFactoryTest extends TestCase
      */
     public function it_creates_metadata_using_the_saga_configuration(): void
     {
-        $this->markTestSkipped('Yay phpunit');
         $metadataFactory = new StaticallyConfiguredSagaMetadataFactory();
-        $criteria        = new Criteria(['id' => 'YoLo']);
-
-        $saga = $this->getMockBuilder(StaticallyConfiguredSagaInterface::class)->getMock();
-        $saga->staticExpects($this->any())
-            ->method('configuration')
-            ->willReturn([
-                'StaticallyConfiguredSagaMetadataFactoryTestEvent' => static function ($event) use (
-                    $criteria
-                ){
-                    return $criteria;
-                },
-            ]);
-
+        $saga = new StaticallyConfiguredSaga();
         $metadata = $metadataFactory->create($saga);
 
         $this->assertInstanceOf(MetadataInterface::class, $metadata);
 
         $event = new StaticallyConfiguredSagaMetadataFactoryTestEvent();
-        $this->assertTrue($metadata->handles($event));
-        $this->assertEquals($criteria, $metadata->criteria($event));
+        $domainMessage = DomainMessage::recordNow('id', 0, new \Broadway\Domain\Metadata([]), $event);
+
+        $this->assertTrue($metadata->handles($domainMessage));
+        $this->assertEquals(
+            new Criteria(['id' => $domainMessage->getId()]),
+            $metadata->criteria($domainMessage)
+        );
     }
 }
 
+/**
+ * Class StaticallyConfiguredSagaMetadataFactoryTestEvent
+ * @package Broadway\Saga\Metadata
+ */
 class StaticallyConfiguredSagaMetadataFactoryTestEvent
 {
+}
+
+/**
+ * Class StaticallyConfiguredSaga
+ * @package Broadway\Saga\Metadata
+ */
+class StaticallyConfiguredSaga implements StaticallyConfiguredSagaInterface
+{
+    /**
+     * @param State $state
+     * @param DomainMessage $domainMessage
+     *
+     * @return State
+     */
+    public function handle(State $state, DomainMessage $domainMessage): State
+    {
+        return $state;
+    }
+
+    /**
+     * @return array
+     */
+    public static function configuration(): array
+    {
+        return [
+            'StaticallyConfiguredSagaMetadataFactoryTestEvent' => static function ($event, DomainMessage $domainMessage) {
+                return new Criteria(['id' => $domainMessage->getId()]);
+            }
+        ];
+    }
 }
