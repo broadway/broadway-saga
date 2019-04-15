@@ -41,8 +41,8 @@ class ReservationSaga extends Saga implements StaticallyConfiguredSagaInterface
     public function __construct(
         CommandBus $commandBus,
         UuidGeneratorInterface $uuidGenerator
-    ) {
-        $this->commandBus    = $commandBus;
+    ){
+        $this->commandBus = $commandBus;
         $this->uuidGenerator = $uuidGenerator;
     }
 
@@ -52,23 +52,29 @@ class ReservationSaga extends Saga implements StaticallyConfiguredSagaInterface
     public static function configuration(): array
     {
         return [
-            'OrderPlaced' => static function (OrderPlaced $event) {
+            'OrderPlaced'         => static function (OrderPlaced $event){
                 return null; // no criteria, start of a new saga
             },
-            'ReservationAccepted' => static function (ReservationAccepted $event) {
+            'ReservationAccepted' => static function (ReservationAccepted $event){
                 // return a Criteria object to fetch the State of this saga
                 return new Criteria([
-                    'reservationId' => $event->reservationId()
+                    'reservationId' => $event->reservationId(),
                 ]);
             },
-            'ReservationRejected' => static function (ReservationRejected $event) {
+            'ReservationRejected' => static function (ReservationRejected $event){
                 // return a Criteria object to fetch the State of this saga
                 return new Criteria([
-                    'reservationId' => $event->reservationId()
+                    'reservationId' => $event->reservationId(),
                 ]);
-            }
+            },
+            'BadMethodCall'=> static function (BadMethodCall $event){
+                return null; // no criteria, start of a new saga
+            },
+
         ];
     }
+
+
 
     /**
      * @param State $state
@@ -151,7 +157,7 @@ class OrderPlaced
      */
     public function __construct($orderId, $numberOfSeats)
     {
-        $this->orderId       = $orderId;
+        $this->orderId = $orderId;
         $this->numberOfSeats = $numberOfSeats;
     }
 
@@ -312,5 +318,32 @@ class RejectOrder
     public function __construct($orderId)
     {
         $this->orderId = $orderId;
+    }
+}
+
+/**
+ * Class BadMethodCall
+ */
+class BadMethodCall
+{
+    /**
+     * @var
+     */
+    private $foo;
+
+    /**
+     * @param $orderId
+     */
+    public function __construct($foo)
+    {
+        $this->foo = $foo;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFoo()
+    {
+        return $this->foo;
     }
 }

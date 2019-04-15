@@ -25,5 +25,7 @@
   <logging>
     <log type="coverage-php" target="build/coverage.cov"/>
     <log type="coverage-clover" target="build/clover.xml"/>
+    <log type="coverage-html" target="build/clover.xml"/>
+    <log type="coverage-html" target="build/coverage-html" lowUpperBound="35" highLowerBound="70"/>
   </logging>
 </phpunit>
