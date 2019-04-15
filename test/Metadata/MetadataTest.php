@@ -15,6 +15,11 @@ use Broadway\Domain\DomainMessage;
 use Broadway\Saga\State\Criteria;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class StaticallyConfiguredSagaMetadataTest
+ * @package Broadway\Saga\Metadata
+ * @covers \Broadway\Saga\Metadata\Metadata
+ */
 class StaticallyConfiguredSagaMetadataTest extends TestCase
 {
     /**

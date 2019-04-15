@@ -17,6 +17,10 @@ use Broadway\Saga\State;
 use Broadway\Saga\State\Criteria;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class StaticallyConfiguredSagaMetadataFactoryTest
+ * @package Broadway\Saga\Metadata
+ */
 class StaticallyConfiguredSagaMetadataFactoryTest extends TestCase
 {
     /**
@@ -41,21 +45,38 @@ class StaticallyConfiguredSagaMetadataFactoryTest extends TestCase
     }
 }
 
+/**
+ * Class StaticallyConfiguredSagaMetadataFactoryTestEvent
+ * @package Broadway\Saga\Metadata
+ */
 class StaticallyConfiguredSagaMetadataFactoryTestEvent
 {
 }
 
+/**
+ * Class StaticallyConfiguredSaga
+ * @package Broadway\Saga\Metadata
+ */
 class StaticallyConfiguredSaga implements StaticallyConfiguredSagaInterface
 {
+    /**
+     * @param State $state
+     * @param DomainMessage $domainMessage
+     *
+     * @return State
+     */
     public function handle(State $state, DomainMessage $domainMessage): State
     {
         return $state;
     }
 
-    public static function configuration()
+    /**
+     * @return array
+     */
+    public static function configuration(): array
     {
         return [
-            'StaticallyConfiguredSagaMetadataFactoryTestEvent' => function ($event, DomainMessage $domainMessage) {
+            'StaticallyConfiguredSagaMetadataFactoryTestEvent' => static function ($event, DomainMessage $domainMessage) {
                 return new Criteria(['id' => $domainMessage->getId()]);
             }
         ];
