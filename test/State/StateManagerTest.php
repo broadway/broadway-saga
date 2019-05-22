@@ -60,9 +60,9 @@ class StateManagerTest extends TestCase
      */
     public function it_returns_an_existing_state_instance_matching_the_returned_criteria(): void
     {
-        $state = new State(1337);
+        $state = new State(1337, 'sagaId');
         $state->set('appId', 1337);
-        $this->repository->save($state, 'sagaId');
+        $this->repository->save($state);
         $criteria = new Criteria(['appId' => 1337]);
 
         $resolvedState = $this->manager->findOneBy($criteria, 'sagaId');

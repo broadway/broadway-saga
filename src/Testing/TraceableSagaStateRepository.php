@@ -57,6 +57,17 @@ class TraceableSagaStateRepository implements RepositoryInterface
     }
 
     /**
+     * @param Criteria $criteria
+     * @param $sagaId
+     *
+     * @return array
+     */
+    public function findFailed(?Criteria $criteria = null, ?string $sagaId = null): array
+    {
+        return $this->repository->findFailed($criteria, $sagaId);
+    }
+
+    /**
      * @return mixed[]
      */
     public function getSaved(): array
@@ -66,11 +77,10 @@ class TraceableSagaStateRepository implements RepositoryInterface
 
     /**
      * @param State $state
-     * @param $sagaId
      */
-    public function save(State $state, $sagaId)
+    public function save(State $state)
     {
-        $this->repository->save($state, $sagaId);
+        $this->repository->save($state);
 
         if ($this->tracing) {
             if ($state->isDone()) {

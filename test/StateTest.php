@@ -29,7 +29,7 @@ class StateTest extends TestCase
      */
     public function setUp()
     {
-        $this->state = new State(42);
+        $this->state = new State(42, 'test.saga');
     }
 
     /**
@@ -71,6 +71,36 @@ class StateTest extends TestCase
     /**
      * @test
      */
+    public function it_can_be_set_as_in_progress(): void
+    {
+        $this->state->setInProgress();
+
+        $this->assertTrue($this->state->isInProgress());
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_be_set_as_is_failed(): void
+    {
+        $this->state->setFailed();
+
+        $this->assertTrue($this->state->isFailed());
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_be_set_as_is_died(): void
+    {
+        $this->state->setDied();
+
+        $this->assertTrue($this->state->isDied());
+    }
+
+    /**
+     * @test
+     */
     public function a_previously_set_value_is_overridden(): void
     {
         $this->state->set('foo', 'bar');
@@ -85,6 +115,14 @@ class StateTest extends TestCase
     public function it_exposes_its_id(): void
     {
         $this->assertEquals(42, $this->state->getId());
+    }
+
+    /**
+     * @test
+     */
+    public function it_exposes_its_saga_id(): void
+    {
+        $this->assertEquals('test.saga', $this->state->getSagaId());
     }
 
     /**

@@ -24,25 +24,60 @@ use Broadway\Serializer\Serializable;
  */
 class State implements Serializable
 {
-    private $done = false;
+    public const SAGA_STATE_STATUS_IN_PROGRESS  = 0;
+    public const SAGA_STATE_STATUS_DONE         = 1;
+    public const SAGA_STATE_STATUS_FAILED       = 2;
+    public const SAGA_STATE_STATUS_DIED         = 3;
+
+    /**
+     * Saga type id
+     *
+     * @var string
+     */
+    private $sagaId;
+
+    /**
+     * Saga state process status
+     *
+     * @var int
+     */
+    private $status;
+
+    /**
+     * Saga process unique id
+     *
+     * @var string
+     */
     private $id;
+
+    /**
+     * Saga state values
+     *
+     * @var array
+     */
     private $values = [];
 
     /**
      * @param string $id Unique identifier for the state object
+     * @param string $sagaId
      */
-    public function __construct($id)
+    public function __construct($id, string $sagaId)
     {
         $this->id = $id;
+        $this->sagaId = $sagaId;
     }
 
     /**
      * @param string $key
      * @param mixed  $value
+     *
+     * @return $this
      */
-    public function set($key, $value): void
+    public function set($key, $value): self
     {
         $this->values[$key] = $value;
+
+        return $this;
     }
 
     /**
@@ -68,19 +103,99 @@ class State implements Serializable
     }
 
     /**
-     * Mark the saga as done.
+     * @return string
      */
-    public function setDone(): void
+    public function getSagaId(): string
     {
-        $this->done = true;
+        return $this->sagaId;
+    }
+
+    /**
+     * Mark the saga as done.
+     *
+     * @return $this
+     */
+    public function setDone(): self
+    {
+        $this->status = self::SAGA_STATE_STATUS_DONE;
+
+        return $this;
     }
 
     /**
      * @return boolean
      */
-    public function isDone(): bool
+    public function isDone()
     {
-        return $this->done;
+        return $this->status === self::SAGA_STATE_STATUS_DONE;
+    }
+
+    /**
+     * Mark the saga as failed.
+     *
+     * @return $this
+     */
+    public function setFailed(): self
+    {
+        $this->status = self::SAGA_STATE_STATUS_FAILED;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isFailed()
+    {
+        return $this->status === self::SAGA_STATE_STATUS_FAILED;
+    }
+
+    /**
+     * Mark the saga as died.
+     *
+     * @return $this
+     */
+    public function setDied(): self
+    {
+        $this->status = self::SAGA_STATE_STATUS_DIED;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isDied()
+    {
+        return $this->status === self::SAGA_STATE_STATUS_DIED;
+    }
+
+    /**
+     * Mark the saga as failed.
+     */
+    public function setInProgress(): self
+    {
+        $this->status = self::SAGA_STATE_STATUS_IN_PROGRESS;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isInProgress()
+    {
+        return $this->status === self::SAGA_STATE_STATUS_IN_PROGRESS;
+    }
+
+    /**
+     * Return Status
+     *
+     * @return int
+     */
+    public function getStatus(): int
+    {
+        return $this->status;
     }
 
     /**
@@ -88,7 +203,7 @@ class State implements Serializable
      */
     public function serialize(): array
     {
-        return ['id' => $this->getId(), 'values' => $this->values, 'done' => $this->isDone()];
+        return ['id' => $this->getId(), 'values' => $this->values, 'status' => $this->getStatus(), 'saga_id' => $this->getSagaId()];
     }
 
     /**
@@ -96,9 +211,9 @@ class State implements Serializable
      */
     public static function deserialize(array $data)
     {
-        $state         = new State($data['id']);
-        $state->done   = $data['done'];
-        $state->values = $data['values'];
+        $state          = new State($data['id'], $data['saga_id']);
+        $state->status  = $data['status'];
+        $state->values  = $data['values'];
 
         return $state;
     }
