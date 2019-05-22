@@ -57,14 +57,62 @@ class InMemoryRepository implements RepositoryInterface
     }
 
     /**
+     * Find failed saga states
+     *
+     * @param Criteria|null $criteria
+     * @param string|null $sagaId
+     *
+     * @return array
+     */
+    public function findFailed(?Criteria $criteria = null, ?string $sagaId = null): array
+    {
+        if (null !== $sagaId) {
+            if (! isset($this->states[$sagaId])) {
+                return null;
+            }
+
+            $states = $this->states[$sagaId];
+        } else {
+            $states = [];
+
+            foreach ($this->states as $sagaStates) {
+                $states = $states + $sagaStates;
+            }
+        }
+
+        $failedStates = [];
+
+        foreach ($states as $state) {
+            /** @var State $state */
+            if ($state->isFailed()) {
+                $failedStates[] = $state;
+            }
+        }
+
+        if (null === $criteria) {
+            return $failedStates;
+        }
+
+        foreach ($criteria->getComparisons() as $key => $value) {
+            $failedStates = array_filter($failedStates, static function ($elem) use ($key, $value) {
+                $stateValue = $elem->get($key);
+
+                return is_array($stateValue) ? in_array($value, $stateValue) : $value === $stateValue;
+            });
+        }
+
+        return $failedStates;
+    }
+
+    /**
      * {@inheritDoc}
      */
-    public function save(State $state, $sagaId)
+    public function save(State $state)
     {
         if ($state->isDone()) {
-            unset($this->states[$sagaId][$state->getId()]);
+            unset($this->states[$state->getSagaId()][$state->getId()]);
         } else {
-            $this->states[$sagaId][$state->getId()] = $state;
+            $this->states[$state->getSagaId()][$state->getId()] = $state;
         }
     }
 }

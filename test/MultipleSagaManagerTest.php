@@ -76,9 +76,9 @@ class MultipleSagaManagerTest extends TestCase
      */
     public function it_saves_the_modified_state(): void
     {
-        $s1 = new State(1);
+        $s1 = new State(1, 'sagaId');
         $s1->set('appId', 42);
-        $this->repository->save($s1, 'sagaId');
+        $this->repository->save($s1);
         $this->repository->trace();
 
         $this->handleEvent($this->manager, new TestEvent1());
@@ -94,9 +94,9 @@ class MultipleSagaManagerTest extends TestCase
      */
     public function it_removes_the_state_if_the_saga_is_done(): void
     {
-        $s1 = new State(1);
+        $s1 = new State(1, 'sagaId');
         $s1->set('appId', 42);
-        $this->repository->save($s1, 'sagaId');
+        $this->repository->save($s1);
         $this->repository->trace();
 
         $this->handleEvent($this->manager, new TestEventDone());
@@ -175,9 +175,9 @@ class MultipleSagaManagerTest extends TestCase
      */
     public function it_calls_all_sagas_configured_for_that_event_even_when_a_state_is_not_found_for_previous_saga(): void
     {
-        $s1 = new State(1);
+        $s1 = new State(1, 'sagaId');
         $s1->set('appId', 42);
-        $this->repository->save($s1, 'saga2');
+        $this->repository->save($s1);
 
         $sagas   = ['saga1' => new SagaManagerTestSaga(), 'saga2' => new SagaManagerTestSaga()];
         $manager = $this->createManager($this->repository, $sagas, $this->stateManager, $this->metadataFactory, $this->eventDispatcher);
@@ -194,12 +194,12 @@ class MultipleSagaManagerTest extends TestCase
      */
     public function it_gives_every_saga_an_own_stage_even_when_the_criteria_are_the_same(): void
     {
-        $s1 = new State(1);
+        $s1 = new State(1, 'saga1');
         $s1->set('appId', 42);
-        $this->repository->save($s1, 'saga1');
-        $s2 = new State(2);
+        $this->repository->save($s1);
+        $s2 = new State(2, 'saga2');
         $s2->set('appId', 42);
-        $this->repository->save($s2, 'saga2');
+        $this->repository->save($s2);
 
         $sagas   = ['saga1' => new SagaManagerTestSaga(), 'saga2' => new SagaManagerTestSaga()];
         $manager = $this->createManager($this->repository, $sagas, $this->stateManager, $this->metadataFactory, $this->eventDispatcher);
@@ -220,9 +220,9 @@ class MultipleSagaManagerTest extends TestCase
     public function it_dispatches_events(): void
     {
         $stateId = 1;
-        $s1      = new State($stateId);
+        $s1      = new State($stateId, 'sagaId');
         $s1->set('appId', 42);
-        $this->repository->save($s1, 'sagaId');
+        $this->repository->save($s1);
         $this->handleEvent($this->manager, new TestEvent1());
 
         $dispatchedEvents = $this->eventDispatcher->getDispatchedEvents();

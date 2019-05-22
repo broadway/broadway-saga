@@ -103,7 +103,19 @@ class MultipleSagaManager implements SagaManagerInterface
                 [$sagaType, $state->getId()]
             );
 
-            $this->repository->save($newState, $sagaType);
+            $this->repository->save($newState);
         }
+    }
+
+    /**
+     * Find and return saga object by saga type name
+     *
+     * @param string $sagaType
+     *
+     * @return SagaInterface|null
+     */
+    public function getSagaByType(string $sagaType): ?SagaInterface
+    {
+        return $this->sagas[$sagaType] ?? null;
     }
 }

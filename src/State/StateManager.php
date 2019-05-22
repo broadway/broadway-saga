@@ -52,6 +52,6 @@ class StateManager implements StateManagerInterface
             return $this->repository->findOneBy($criteria, $sagaId);
         }
 
-        return new State($this->generator->generate());
+        return new State($this->generator->generate(), $sagaId);
     }
 }

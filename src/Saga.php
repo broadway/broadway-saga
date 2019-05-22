@@ -12,6 +12,7 @@
 namespace Broadway\Saga;
 
 use BadMethodCallException;
+use Throwable;
 
 /**
  * Class Saga
@@ -38,8 +39,16 @@ abstract class Saga implements SagaInterface
                 )
             );
         }
+        $state->setInProgress();
 
-        return $this->$method($state, $event, $domainMessage);
+        try {
+            $state = $this->$method($state, $event, $domainMessage);
+        } catch (Throwable $e) {
+            $state->set('exception', $e->getMessage().', class: '.$e->getFile().', line: '.$e->getLine());
+            $state->setFailed();
+        }
+
+        return $state;
     }
 
     /**

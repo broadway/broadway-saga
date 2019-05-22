@@ -26,10 +26,19 @@ interface RepositoryInterface
     public function findOneBy(Criteria $criteria, $sagaId): ?State;
 
     /**
+     * Find failed saga states
+     *
+     * @param Criteria|null $criteria
+     * @param string|null $sagaId
+     *
+     * @return array
+     */
+    public function findFailed(?Criteria $criteria = null, ?string $sagaId = null): array;
+
+    /**
      * @param State $state
-     * @param $sagaId
      *
      * @return mixed
      */
-    public function save(State $state, $sagaId);
+    public function save(State $state);
 }
