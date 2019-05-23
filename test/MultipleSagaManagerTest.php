@@ -175,7 +175,7 @@ class MultipleSagaManagerTest extends TestCase
      */
     public function it_calls_all_sagas_configured_for_that_event_even_when_a_state_is_not_found_for_previous_saga(): void
     {
-        $s1 = new State(1, 'sagaId');
+        $s1 = new State(1, 'saga2');
         $s1->set('appId', 42);
         $this->repository->save($s1);
 

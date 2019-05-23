@@ -52,7 +52,7 @@ class StateManagerTest extends TestCase
     {
         $state = $this->manager->findOneBy(null, 'sagaId');
 
-        $this->assertEquals(new State(42), $state);
+        $this->assertEquals(new State(42, 'sagaId'), $state);
     }
 
     /**

@@ -131,6 +131,7 @@ class StateTest extends TestCase
     public function it_can_be_serialized_and_deserialized_to_itself(): void
     {
         $this->state->set('foo', 'bar');
+        $this->state->setInProgress();
         $state = State::deserialize($this->state->serialize());
 
         $this->assertEquals($this->state, $state);
