@@ -230,13 +230,13 @@ class MultipleSagaManagerTest extends TestCase
         $this->assertCount(2, $dispatchedEvents);
 
         $this->assertEquals('broadway.saga.pre_handle', $dispatchedEvents[0]['event']);
-        $this->assertEquals('sagaId', $dispatchedEvents[0]['arguments'][0]);
-        $this->assertInstanceOf(State::class, $dispatchedEvents[0]['arguments'][1]);
-        $this->assertEquals($stateId, $dispatchedEvents[0]['arguments'][1]->getId());
+        $this->assertInstanceOf(State::class, $dispatchedEvents[0]['arguments'][0]);
+        $this->assertEquals('sagaId', $dispatchedEvents[0]['arguments'][0]->getSagaId());
+        $this->assertEquals($stateId, $dispatchedEvents[0]['arguments'][0]->getId());
 
         $this->assertEquals('broadway.saga.post_handle', $dispatchedEvents[1]['event']);
-        $this->assertEquals('sagaId', $dispatchedEvents[1]['arguments'][0]);
-        $this->assertInstanceOf(State::class, $dispatchedEvents[1]['arguments'][1]);
+        $this->assertInstanceOf(State::class, $dispatchedEvents[1]['arguments'][0]);
+        $this->assertEquals('sagaId', $dispatchedEvents[1]['arguments'][0]->getSagaId());
         $this->assertEquals($stateId, $dispatchedEvents[1]['arguments'][1]->getId());
     }
 
@@ -251,13 +251,15 @@ class MultipleSagaManagerTest extends TestCase
         $this->assertCount(2, $dispatchedEvents);
 
         $this->assertEquals('broadway.saga.pre_handle', $dispatchedEvents[0]['event']);
-        $this->assertEquals('sagaId', $dispatchedEvents[0]['arguments'][0]);
-        Assert::uuid($dispatchedEvents[0]['arguments'][1]->getId());
+        $this->assertInstanceOf(State::class, $dispatchedEvents[0]['arguments'][0]);
+        $this->assertEquals('sagaId', $dispatchedEvents[0]['arguments'][0]->getSagaId());
+        Assert::uuid($dispatchedEvents[0]['arguments'][0]->getId());
 
         $this->assertEquals('broadway.saga.post_handle', $dispatchedEvents[1]['event']);
-        $this->assertEquals('sagaId', $dispatchedEvents[1]['arguments'][0]);
-        Assert::uuid($dispatchedEvents[1]['arguments'][1]->getId());
-        $this->assertEquals($dispatchedEvents[0]['arguments'][1], $dispatchedEvents[1]['arguments'][1]);
+        $this->assertInstanceOf(State::class, $dispatchedEvents[0]['arguments'][0]);
+        $this->assertEquals('sagaId', $dispatchedEvents[1]['arguments'][0]->getSagaId());
+        Assert::uuid($dispatchedEvents[1]['arguments'][0]->getId());
+        $this->assertEquals($dispatchedEvents[0]['arguments'][0], $dispatchedEvents[1]['arguments'][0]);
     }
 
     /**

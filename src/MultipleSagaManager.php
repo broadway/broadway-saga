@@ -97,14 +97,14 @@ class MultipleSagaManager implements SagaManagerInterface
             }
             $this->eventDispatcher->dispatch(
                 SagaManagerInterface::EVENT_PRE_HANDLE,
-                [$sagaType, $state, $domainMessage]
+                [$state, $domainMessage]
             );
 
             $newState = $saga->handle($state, $domainMessage);
 
             $this->eventDispatcher->dispatch(
                 SagaManagerInterface::EVENT_POST_HANDLE,
-                [$sagaType, $state, $domainMessage]
+                [$state, $domainMessage]
             );
 
             $this->repository->save($newState);
