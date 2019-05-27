@@ -12,7 +12,6 @@
 namespace Broadway\Saga\Metadata;
 
 use Broadway\Saga\SagaInterface;
-use Throwable;
 
 /**
  * Class CatchableSagaInterface
@@ -28,18 +27,6 @@ interface CatchableSagaInterface extends SagaInterface
      * @return bool
      */
     public function isThrowException(): bool;
-
-    /**
-     * Returns the exception
-     *
-     * @return Throwable|null
-     */
-    public function getException(): ?Throwable;
-
-    /**
-     * Indicates that exception is caught
-     */
-    public function catchException(): self;
 
     /**
      * Checks whether exception is caught

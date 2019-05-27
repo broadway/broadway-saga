@@ -101,11 +101,9 @@ abstract class Saga implements CatchableSagaInterface
     /**
      * Indicates that exception is caught
      */
-    public function catchException(): self
+    public function catchException(): void
     {
         $this->exceptionCaught = true;
-
-        return $this;
     }
 
     /**
