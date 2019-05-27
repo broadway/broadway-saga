@@ -11,6 +11,7 @@
 
 namespace Broadway\Saga;
 
+use Broadway\Domain\DomainMessage;
 use Broadway\Domain\Metadata;
 use PHPUnit\Framework\TestCase;
 
@@ -46,7 +47,9 @@ class SagaMetadataEnricherTest extends TestCase
     {
         $type = 'type';
         $id   = 'id';
-        $this->sagaMetadataEnricher->postHandleSaga($type, $id);
+        $state = new State($id, $type);
+        $domainMessage = DomainMessage::recordNow($id, 0, new Metadata([]), []);
+        $this->sagaMetadataEnricher->postHandleSaga($state, $domainMessage);
 
         $actual = $this->sagaMetadataEnricher->enrich($this->metadata);
 
@@ -59,8 +62,18 @@ class SagaMetadataEnricherTest extends TestCase
      */
     public function it_uses_the_latest_saga_data_it_received(): void
     {
-        $this->sagaMetadataEnricher->postHandleSaga('type1', 'id1');
-        $this->sagaMetadataEnricher->postHandleSaga('type2', 'id2');
+        $type1 = 'type1';
+        $id1   = 'id1';
+        $state1 = new State($id1, $type1);
+        $domainMessage1 = DomainMessage::recordNow($id1, 0, new Metadata([]), []);
+        $this->sagaMetadataEnricher->postHandleSaga($state1, $domainMessage1);
+
+
+        $type2 = 'type2';
+        $id2   = 'id2';
+        $state2 = new State($id2, $type2);
+        $domainMessage2 = DomainMessage::recordNow($id2, 0, new Metadata([]), []);
+        $this->sagaMetadataEnricher->postHandleSaga($state2, $domainMessage2);
 
         $actual = $this->sagaMetadataEnricher->enrich($this->metadata);
 
@@ -73,7 +86,11 @@ class SagaMetadataEnricherTest extends TestCase
      */
     public function it_enriches_multiple_instances_of_metadata(): void
     {
-        $this->sagaMetadataEnricher->postHandleSaga('type', 'id');
+        $type = 'type';
+        $id   = 'id';
+        $state = new State($id, $type);
+        $domainMessage = DomainMessage::recordNow($id, 0, new Metadata([]), []);
+        $this->sagaMetadataEnricher->postHandleSaga($state, $domainMessage);
 
         $this->sagaMetadataEnricher->enrich($this->metadata);
         $actual = $this->sagaMetadataEnricher->enrich($this->metadata);

@@ -13,9 +13,11 @@ namespace Broadway\Saga;
 
 use Broadway\Domain\DomainMessage;
 use Broadway\EventDispatcher\EventDispatcher;
+use Broadway\Saga\Metadata\CatchableSagaInterface;
 use Broadway\Saga\Metadata\MetadataFactoryInterface;
 use Broadway\Saga\State\RepositoryInterface;
 use Broadway\Saga\State\StateManagerInterface;
+use Throwable;
 
 /**
  * SagaManager that manages multiple sagas.
@@ -74,6 +76,8 @@ class MultipleSagaManager implements SagaManagerInterface
      * Handles the event by delegating it to Saga('s) related to the event.
      *
      * @param DomainMessage $domainMessage
+     *
+     * @throws Throwable
      */
     public function handle(DomainMessage $domainMessage): void
     {
@@ -93,17 +97,21 @@ class MultipleSagaManager implements SagaManagerInterface
             }
             $this->eventDispatcher->dispatch(
                 SagaManagerInterface::EVENT_PRE_HANDLE,
-                [$sagaType, $state->getId()]
+                [$sagaType, $state, $domainMessage]
             );
 
             $newState = $saga->handle($state, $domainMessage);
 
             $this->eventDispatcher->dispatch(
                 SagaManagerInterface::EVENT_POST_HANDLE,
-                [$sagaType, $state->getId()]
+                [$sagaType, $state, $domainMessage]
             );
 
             $this->repository->save($newState);
+
+            if ($saga instanceof CatchableSagaInterface && $saga->isThrowException() && !$saga->isExceptionCaught()) {
+                throw $saga->getException();
+            }
         }
     }
 

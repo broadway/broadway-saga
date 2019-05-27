@@ -15,6 +15,7 @@ use Assert\Assertion as Assert;
 use Broadway\Domain\DomainMessage;
 use Broadway\Domain\Metadata;
 use Broadway\EventDispatcher\Testing\TraceableEventDispatcher;
+use Broadway\Saga\Metadata\CatchableSagaInterface;
 use Broadway\Saga\Metadata\StaticallyConfiguredSagaInterface;
 use Broadway\Saga\Metadata\StaticallyConfiguredSagaMetadataFactory;
 use Broadway\Saga\State\Criteria;
@@ -230,11 +231,13 @@ class MultipleSagaManagerTest extends TestCase
 
         $this->assertEquals('broadway.saga.pre_handle', $dispatchedEvents[0]['event']);
         $this->assertEquals('sagaId', $dispatchedEvents[0]['arguments'][0]);
-        $this->assertEquals($stateId, $dispatchedEvents[0]['arguments'][1]);
+        $this->assertInstanceOf(State::class, $dispatchedEvents[0]['arguments'][1]);
+        $this->assertEquals($stateId, $dispatchedEvents[0]['arguments'][1]->getId());
 
         $this->assertEquals('broadway.saga.post_handle', $dispatchedEvents[1]['event']);
         $this->assertEquals('sagaId', $dispatchedEvents[1]['arguments'][0]);
-        $this->assertEquals($stateId, $dispatchedEvents[1]['arguments'][1]);
+        $this->assertInstanceOf(State::class, $dispatchedEvents[1]['arguments'][1]);
+        $this->assertEquals($stateId, $dispatchedEvents[1]['arguments'][1]->getId());
     }
 
     /**
@@ -249,11 +252,11 @@ class MultipleSagaManagerTest extends TestCase
 
         $this->assertEquals('broadway.saga.pre_handle', $dispatchedEvents[0]['event']);
         $this->assertEquals('sagaId', $dispatchedEvents[0]['arguments'][0]);
-        Assert::uuid($dispatchedEvents[0]['arguments'][1]);
+        Assert::uuid($dispatchedEvents[0]['arguments'][1]->getId());
 
         $this->assertEquals('broadway.saga.post_handle', $dispatchedEvents[1]['event']);
         $this->assertEquals('sagaId', $dispatchedEvents[1]['arguments'][0]);
-        Assert::uuid($dispatchedEvents[1]['arguments'][1]);
+        Assert::uuid($dispatchedEvents[1]['arguments'][1]->getId());
         $this->assertEquals($dispatchedEvents[0]['arguments'][1], $dispatchedEvents[1]['arguments'][1]);
     }
 
