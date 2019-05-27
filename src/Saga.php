@@ -85,7 +85,7 @@ abstract class Saga implements CatchableSagaInterface
      */
     public function isThrowException(): bool
     {
-        return !$this->exception;
+        return ($this->exception instanceof Throwable);
     }
 
     /**
@@ -101,9 +101,11 @@ abstract class Saga implements CatchableSagaInterface
     /**
      * Indicates that exception is caught
      */
-    public function catchException(): void
+    public function catchException(): self
     {
         $this->exceptionCaught = true;
+
+        return $this;
     }
 
     /**
