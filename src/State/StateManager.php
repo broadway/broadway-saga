@@ -49,7 +49,7 @@ class StateManager implements StateManagerInterface
     {
         // TODO: Use CreationPolicy to determine whether and how a new state should be created
         if ($criteria instanceof Criteria) {
-            return $this->repository->findOneBy($criteria, $sagaId);
+            return $this->repository->findOneBy($criteria, $sagaId, false);
         }
 
         return new State($this->generator->generate(), $sagaId);

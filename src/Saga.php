@@ -12,6 +12,7 @@
 namespace Broadway\Saga;
 
 use BadMethodCallException;
+use Broadway\Saga\Metadata\CatchableSagaInterface;
 use Throwable;
 
 /**
@@ -20,8 +21,20 @@ use Throwable;
  */
 use Broadway\Domain\DomainMessage;
 
-abstract class Saga implements SagaInterface
+abstract class Saga implements CatchableSagaInterface
 {
+    /**
+     * @var \Exception
+     */
+    protected $exception;
+
+    /**
+     * Checks whether exception is caught
+     *
+     * @var boolean
+     */
+    protected $exceptionCaught = false;
+
     /**
      * {@inheritDoc}
      */
@@ -42,8 +55,10 @@ abstract class Saga implements SagaInterface
         $state->setInProgress();
 
         try {
+            $this->exception = null;
             $state = $this->$method($state, $event, $domainMessage);
         } catch (Throwable $e) {
+            $this->exception = $e;
             $state->set('exception', $e->getMessage().', class: '.$e->getFile().', line: '.$e->getLine());
             $state->setFailed();
         }
@@ -61,5 +76,45 @@ abstract class Saga implements SagaInterface
         $classParts = explode('\\', get_class($event));
 
         return 'handle' . end($classParts);
+    }
+
+    /**
+     * Is was exception while handle event
+     *
+     * @return bool
+     */
+    public function isThrowException(): bool
+    {
+        return !$this->exception;
+    }
+
+    /**
+     * Returns the exception
+     *
+     * @return Throwable|null
+     */
+    public function getException(): ?Throwable
+    {
+        return $this->exception;
+    }
+
+    /**
+     * Indicates that exception is caught
+     */
+    public function catchException(): self
+    {
+        $this->exceptionCaught = true;
+
+        return $this;
+    }
+
+    /**
+     * Checks whether exception is caught
+     *
+     * @return boolean
+     */
+    public function isExceptionCaught(): bool
+    {
+        return $this->exceptionCaught;
     }
 }

@@ -58,13 +58,21 @@ class State implements Serializable
     private $values = [];
 
     /**
+     * Is new state
+     * @var bool
+     */
+    private $isNew;
+
+    /**
      * @param string $id Unique identifier for the state object
      * @param string $sagaId
+     * @param bool $isNew
      */
-    public function __construct($id, string $sagaId)
+    public function __construct($id, string $sagaId, $isNew = true)
     {
         $this->id = $id;
         $this->sagaId = $sagaId;
+        $this->isNew = $isNew;
     }
 
     /**
@@ -196,6 +204,16 @@ class State implements Serializable
     public function getStatus(): int
     {
         return $this->status;
+    }
+
+    /**
+     * Is state new
+     *
+     * @return bool
+     */
+    public function isNew(): bool
+    {
+        return $this->isNew;
     }
 
     /**
