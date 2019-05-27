@@ -68,7 +68,7 @@ class State implements Serializable
      * @param string $sagaId
      * @param bool $isNew
      */
-    public function __construct($id, string $sagaId, $isNew = true)
+    public function __construct($id, string $sagaId, bool $isNew = true)
     {
         $this->id = $id;
         $this->sagaId = $sagaId;
@@ -133,7 +133,7 @@ class State implements Serializable
     /**
      * @return boolean
      */
-    public function isDone()
+    public function isDone(): bool
     {
         return $this->status === self::SAGA_STATE_STATUS_DONE;
     }
@@ -153,7 +153,7 @@ class State implements Serializable
     /**
      * @return boolean
      */
-    public function isFailed()
+    public function isFailed(): bool
     {
         return $this->status === self::SAGA_STATE_STATUS_FAILED;
     }
@@ -191,7 +191,7 @@ class State implements Serializable
     /**
      * @return boolean
      */
-    public function isInProgress()
+    public function isInProgress(): bool
     {
         return $this->status === self::SAGA_STATE_STATUS_IN_PROGRESS;
     }
