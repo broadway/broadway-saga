@@ -5,7 +5,7 @@
   "require": {
     "php": ">=7.2",
     "broadway/broadway": "^2.1",
-    "beberlei/assert": "~2.0 || ~3.0"
+    "beberlei/assert": "^3.0"
   },
   "authors": [
     {
