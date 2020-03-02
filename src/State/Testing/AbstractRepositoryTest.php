@@ -19,7 +19,7 @@ abstract class AbstractRepositoryTest extends TestCase
 {
     protected $repository;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->repository = $this->createRepository();
     }
@@ -99,11 +99,11 @@ abstract class AbstractRepositoryTest extends TestCase
 
     /**
      * @test
-     * @expectedException \Broadway\Saga\State\RepositoryException
-     * @expectedExceptionMessage Multiple saga state instances found.
      */
     public function it_throws_an_exception_if_multiple_matching_elements_are_found()
     {
+        $this->expectException('Broadway\Saga\State\RepositoryException');
+        $this->expectExceptionMessage('Multiple saga state instances found.');
         $s1 = new State(1);
         $s1->set('appId', 42);
         $this->repository->save($s1, 'sagaId');

@@ -20,7 +20,7 @@ class StateManagerTest extends TestCase
     private $repository;
     private $manager;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->repository = new InMemoryRepository();
         $this->generator  = new MockUuidGenerator(42);

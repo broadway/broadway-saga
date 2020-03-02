@@ -17,7 +17,7 @@ class StateTest extends TestCase
 {
     private $state;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->state = new State(42);
     }

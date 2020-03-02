@@ -38,7 +38,7 @@ abstract class SagaScenarioTestCase extends TestCase
      */
     abstract protected function createSaga(CommandBus $commandBus);
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
