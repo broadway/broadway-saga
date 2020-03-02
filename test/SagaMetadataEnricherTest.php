@@ -19,7 +19,7 @@ class SagaMetadataEnricherTest extends TestCase
     private $sagaMetadataEnricher;
     private $metadata;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->sagaMetadataEnricher = new SagaMetadataEnricher();
         $this->metadata             = new Metadata(['yolo' => 'tralelo']);

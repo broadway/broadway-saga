@@ -33,7 +33,7 @@ class MultipleSagaManagerTest extends TestCase
     private $metadataFactory;
     private $eventDispatcher;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->repository      = new TraceableSagaStateRepository(new InMemoryRepository());
         $this->sagas           = ['sagaId' => new SagaManagerTestSaga()];

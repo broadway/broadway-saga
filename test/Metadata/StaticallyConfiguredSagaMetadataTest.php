@@ -17,7 +17,7 @@ class StaticallyConfiguredSagaMetadataTest extends TestCase
 {
     private $metadata;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->metadata = new Metadata([
             'StaticallyConfiguredSagaMetadataTestSagaTestEvent1' => function () { return 'criteria'; },
@@ -56,10 +56,10 @@ class StaticallyConfiguredSagaMetadataTest extends TestCase
 
     /**
      * @test
-     * @expectedException RuntimeException
      */
     public function it_throws_an_exception_if_there_is_no_criteria_for_a_given_event()
     {
+        $this->expectException('RuntimeException');
         $event = new StaticallyConfiguredSagaMetadataTestSagaTestEvent2();
 
         $this->metadata->criteria($event);
