@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway-saga package.
  *
@@ -14,7 +16,7 @@ namespace Broadway\Saga\Metadata;
 interface MetadataFactoryInterface
 {
     /**
-     * Creates and returns the Metadata for the given saga class
+     * Creates and returns the Metadata for the given saga class.
      *
      * @param string $saga
      *

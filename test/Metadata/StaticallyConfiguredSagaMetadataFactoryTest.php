@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway-saga package.
  *
@@ -23,12 +25,12 @@ class StaticallyConfiguredSagaMetadataFactoryTest extends TestCase
     {
         $this->markTestSkipped('Yay phpunit');
         $metadataFactory = new StaticallyConfiguredSagaMetadataFactory();
-        $criteria        = new Criteria(['id' => 'YoLo']);
+        $criteria = new Criteria(['id' => 'YoLo']);
 
         $saga = $this->getMockBuilder('Broadway\Saga\Metadata\StaticallyConfiguredSagaInterface')->getMock();
         $saga->staticExpects($this->any())
             ->method('configuration')
-            ->will($this->returnValue(['StaticallyConfiguredSagaMetadataFactoryTestEvent' => function ($event) use ($criteria) { return $criteria;}]));
+            ->will($this->returnValue(['StaticallyConfiguredSagaMetadataFactoryTestEvent' => function ($event) use ($criteria) { return $criteria; }]));
 
         $metadata = $metadataFactory->create($saga);
 

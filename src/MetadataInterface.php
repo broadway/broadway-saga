@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway-saga package.
  *
@@ -18,7 +20,7 @@ interface MetadataInterface
     /**
      * @param mixed $event
      *
-     * @return boolean True, if the saga can handle the event
+     * @return bool True, if the saga can handle the event
      */
     public function handles($event);
 

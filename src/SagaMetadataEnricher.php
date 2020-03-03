@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway-saga package.
  *
@@ -25,12 +27,12 @@ class SagaMetadataEnricher implements MetadataEnricher
 
     public function enrich(Metadata $metadata): Metadata
     {
-        if (count($this->sagaData) === 0) {
+        if (0 === count($this->sagaData)) {
             return $metadata;
         }
 
         $newMetadata = new Metadata(['saga' => $this->sagaData]);
-        $metadata    = $metadata->merge($newMetadata);
+        $metadata = $metadata->merge($newMetadata);
 
         return $metadata;
     }

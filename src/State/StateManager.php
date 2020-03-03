@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway-saga package.
  *
@@ -22,11 +24,11 @@ class StateManager implements StateManagerInterface
     public function __construct(RepositoryInterface $repository, UuidGeneratorInterface $generator)
     {
         $this->repository = $repository;
-        $this->generator  = $generator;
+        $this->generator = $generator;
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function findOneBy($criteria, $sagaId)
     {

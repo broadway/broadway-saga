@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway-saga package.
  *
@@ -9,7 +11,7 @@
  * file that was distributed with this source code.
  */
 
-require __DIR__ . '/ReservationSaga.php';
+require __DIR__.'/ReservationSaga.php';
 
 use Broadway\CommandHandling\CommandBus;
 use Broadway\Saga\Testing\SagaScenarioTestCase;
@@ -21,7 +23,7 @@ class ReservationSagaTest extends SagaScenarioTestCase
     {
         return new ReservationSaga($commandBus, new MockUuidSequenceGenerator(
             [
-                'bf142ea0-29f7-11e5-9d3f-0002a5d5c51b'
+                'bf142ea0-29f7-11e5-9d3f-0002a5d5c51b',
             ]
         ));
     }
@@ -34,7 +36,7 @@ class ReservationSagaTest extends SagaScenarioTestCase
         $this->scenario
             ->when(new OrderPlaced('9d66f760-29f7-11e5-a239-0002a5d5c51b', 5))
             ->then([
-                new MakeSeatReservation('bf142ea0-29f7-11e5-9d3f-0002a5d5c51b', 5)
+                new MakeSeatReservation('bf142ea0-29f7-11e5-9d3f-0002a5d5c51b', 5),
             ]);
     }
 
@@ -45,11 +47,11 @@ class ReservationSagaTest extends SagaScenarioTestCase
     {
         $this->scenario
             ->given([
-                new OrderPlaced('9d66f760-29f7-11e5-a239-0002a5d5c51b', 5)
+                new OrderPlaced('9d66f760-29f7-11e5-a239-0002a5d5c51b', 5),
             ])
             ->when(new ReservationAccepted('bf142ea0-29f7-11e5-9d3f-0002a5d5c51b'))
             ->then([
-                new MarkOrderAsBooked('9d66f760-29f7-11e5-a239-0002a5d5c51b')
+                new MarkOrderAsBooked('9d66f760-29f7-11e5-a239-0002a5d5c51b'),
             ]);
     }
 
@@ -60,11 +62,11 @@ class ReservationSagaTest extends SagaScenarioTestCase
     {
         $this->scenario
             ->given([
-                new OrderPlaced('9d66f760-29f7-11e5-a239-0002a5d5c51b', 5)
+                new OrderPlaced('9d66f760-29f7-11e5-a239-0002a5d5c51b', 5),
             ])
             ->when(new ReservationRejected('bf142ea0-29f7-11e5-9d3f-0002a5d5c51b'))
             ->then([
-                new RejectOrder('9d66f760-29f7-11e5-a239-0002a5d5c51b')
+                new RejectOrder('9d66f760-29f7-11e5-a239-0002a5d5c51b'),
             ]);
     }
 }

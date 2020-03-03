@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway-saga package.
  *
@@ -27,7 +29,7 @@ class Metadata implements MetadataInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function handles($event)
     {
@@ -37,13 +39,13 @@ class Metadata implements MetadataInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function criteria($event)
     {
         $eventName = $this->getClassName($event);
 
-        if (! isset($this->criteria[$eventName])) {
+        if (!isset($this->criteria[$eventName])) {
             throw new RuntimeException(sprintf("No criteria for event '%s'.", $eventName));
         }
 

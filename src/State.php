@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway-saga package.
  *
@@ -52,7 +54,7 @@ class State implements Serializable
      */
     public function get($key)
     {
-        if (! isset($this->values[$key])) {
+        if (!isset($this->values[$key])) {
             return null; // todo: exception?
         }
 
@@ -76,7 +78,7 @@ class State implements Serializable
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isDone()
     {
@@ -84,7 +86,7 @@ class State implements Serializable
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function serialize(): array
     {
@@ -92,12 +94,12 @@ class State implements Serializable
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public static function deserialize(array $data)
     {
-        $state         = new State($data['id']);
-        $state->done   = $data['done'];
+        $state = new State($data['id']);
+        $state->done = $data['done'];
         $state->values = $data['values'];
 
         return $state;

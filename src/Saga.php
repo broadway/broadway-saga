@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway-saga package.
  *
@@ -14,20 +16,14 @@ namespace Broadway\Saga;
 abstract class Saga implements SagaInterface
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function handle($event, State $state)
     {
         $method = $this->getHandleMethod($event);
 
-        if (! method_exists($this, $method)) {
-            throw new \BadMethodCallException(
-                sprintf(
-                    "No handle method '%s' for event '%s'.",
-                    $method,
-                    get_class($event)
-                )
-            );
+        if (!method_exists($this, $method)) {
+            throw new \BadMethodCallException(sprintf("No handle method '%s' for event '%s'.", $method, get_class($event)));
         }
 
         return $this->$method($event, $state);
@@ -37,6 +33,6 @@ abstract class Saga implements SagaInterface
     {
         $classParts = explode('\\', get_class($event));
 
-        return 'handle' . end($classParts);
+        return 'handle'.end($classParts);
     }
 }
