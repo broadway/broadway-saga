@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway-saga package.
  *
@@ -22,7 +24,7 @@ class SagaMetadataEnricherTest extends TestCase
     public function setUp(): void
     {
         $this->sagaMetadataEnricher = new SagaMetadataEnricher();
-        $this->metadata             = new Metadata(['yolo' => 'tralelo']);
+        $this->metadata = new Metadata(['yolo' => 'tralelo']);
     }
 
     /**
@@ -31,7 +33,7 @@ class SagaMetadataEnricherTest extends TestCase
     public function it_stores_the_state()
     {
         $type = 'type';
-        $id   = 'id';
+        $id = 'id';
         $this->sagaMetadataEnricher->postHandleSaga($type, $id);
 
         $actual = $this->sagaMetadataEnricher->enrich($this->metadata);
@@ -70,12 +72,12 @@ class SagaMetadataEnricherTest extends TestCase
 
     public function enrich(Metadata $metadata)
     {
-        if (count($this->sagaData) === 0) {
+        if (0 === count($this->sagaData)) {
             return $metadata;
         }
 
         $newMetadata = new Metadata([['saga' => $this->sagaData]]);
-        $metadata    = $metadata->merge($newMetadata);
+        $metadata = $metadata->merge($newMetadata);
 
         return $metadata;
     }

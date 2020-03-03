@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway-saga package.
  *
@@ -33,9 +35,9 @@ class MultipleSagaManager implements SagaManagerInterface
         MetadataFactoryInterface $metadataFactory,
         EventDispatcher $eventDispatcher
     ) {
-        $this->repository      = $repository;
-        $this->sagas           = $sagas;
-        $this->stateManager    = $stateManager;
+        $this->repository = $repository;
+        $this->sagas = $sagas;
+        $this->stateManager = $stateManager;
         $this->metadataFactory = $metadataFactory;
         $this->eventDispatcher = $eventDispatcher;
     }
@@ -50,7 +52,7 @@ class MultipleSagaManager implements SagaManagerInterface
         foreach ($this->sagas as $sagaType => $saga) {
             $metadata = $this->metadataFactory->create($saga);
 
-            if (! $metadata->handles($event)) {
+            if (!$metadata->handles($event)) {
                 continue;
             }
 

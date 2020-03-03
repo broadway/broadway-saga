@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway-saga package.
  *
@@ -9,7 +11,7 @@
  * file that was distributed with this source code.
  */
 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__.'/../vendor/autoload.php';
 
 use Broadway\CommandHandling\CommandBus;
 use Broadway\Saga\Metadata\StaticallyConfiguredSagaInterface;
@@ -27,7 +29,7 @@ class ReservationSaga extends Saga implements StaticallyConfiguredSagaInterface
         CommandBus $commandBus,
         UuidGeneratorInterface $uuidGenerator
     ) {
-        $this->commandBus    = $commandBus;
+        $this->commandBus = $commandBus;
         $this->uuidGenerator = $uuidGenerator;
     }
 
@@ -40,15 +42,15 @@ class ReservationSaga extends Saga implements StaticallyConfiguredSagaInterface
             'ReservationAccepted' => function (ReservationAccepted $event) {
                 // return a Criteria object to fetch the State of this saga
                 return new Criteria([
-                    'reservationId' => $event->reservationId()
+                    'reservationId' => $event->reservationId(),
                 ]);
             },
             'ReservationRejected' => function (ReservationRejected $event) {
                 // return a Criteria object to fetch the State of this saga
                 return new Criteria([
-                    'reservationId' => $event->reservationId()
+                    'reservationId' => $event->reservationId(),
                 ]);
-            }
+            },
         ];
     }
 
@@ -94,7 +96,7 @@ class ReservationSaga extends Saga implements StaticallyConfiguredSagaInterface
 }
 
 /**
- * event
+ * event.
  */
 class OrderPlaced
 {
@@ -103,7 +105,7 @@ class OrderPlaced
 
     public function __construct($orderId, $numberOfSeats)
     {
-        $this->orderId       = $orderId;
+        $this->orderId = $orderId;
         $this->numberOfSeats = $numberOfSeats;
     }
 
@@ -119,7 +121,7 @@ class OrderPlaced
 }
 
 /**
- * command
+ * command.
  */
 class MakeSeatReservation
 {
@@ -144,7 +146,7 @@ class MakeSeatReservation
 }
 
 /**
- * event
+ * event.
  */
 class ReservationAccepted
 {
@@ -162,7 +164,7 @@ class ReservationAccepted
 }
 
 /**
- * event
+ * event.
  */
 class ReservationRejected
 {
@@ -180,7 +182,7 @@ class ReservationRejected
 }
 
 /**
- * command
+ * command.
  */
 class MarkOrderAsBooked
 {
@@ -193,7 +195,7 @@ class MarkOrderAsBooked
 }
 
 /**
- * command
+ * command.
  */
 class RejectOrder
 {

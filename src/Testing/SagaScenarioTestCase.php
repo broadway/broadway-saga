@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway-saga package.
  *
@@ -30,9 +32,7 @@ abstract class SagaScenarioTestCase extends TestCase
     protected $scenario;
 
     /**
-     * Create the saga you want to test in this test case
-     *
-     * @param  CommandBus $commandBus
+     * Create the saga you want to test in this test case.
      *
      * @return SagaInterface
      */
@@ -48,9 +48,9 @@ abstract class SagaScenarioTestCase extends TestCase
     protected function createScenario()
     {
         $traceableCommandBus = new TraceableCommandBus();
-        $saga                = $this->createSaga($traceableCommandBus);
+        $saga = $this->createSaga($traceableCommandBus);
         $sagaStateRepository = new InMemoryRepository();
-        $sagaManager         = new MultipleSagaManager(
+        $sagaManager = new MultipleSagaManager(
             $sagaStateRepository,
             [$saga],
             new StateManager($sagaStateRepository, new Version4Generator()),

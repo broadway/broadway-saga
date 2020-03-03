@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway-saga package.
  *
@@ -22,7 +24,7 @@ use Broadway\Saga\State;
 interface StateManagerInterface
 {
     /**
-     * @param null|Criteria $criteria
+     * @param Criteria|null $criteria
      *
      * @return State
      */

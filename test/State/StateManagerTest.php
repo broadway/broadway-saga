@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway-saga package.
  *
@@ -23,8 +25,8 @@ class StateManagerTest extends TestCase
     public function setUp(): void
     {
         $this->repository = new InMemoryRepository();
-        $this->generator  = new MockUuidGenerator(42);
-        $this->manager    = new StateManager($this->repository, $this->generator);
+        $this->generator = new MockUuidGenerator(42);
+        $this->manager = new StateManager($this->repository, $this->generator);
     }
 
     /**

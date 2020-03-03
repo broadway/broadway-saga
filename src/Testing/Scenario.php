@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway-saga package.
  *
@@ -29,15 +31,13 @@ class Scenario
         MultipleSagaManager $sagaManager,
         TraceableCommandBus $traceableCommandBus
     ) {
-        $this->testCase            = $testCase;
-        $this->sagaManager         = $sagaManager;
+        $this->testCase = $testCase;
+        $this->sagaManager = $sagaManager;
         $this->traceableCommandBus = $traceableCommandBus;
-        $this->playhead            = -1;
+        $this->playhead = -1;
     }
 
     /**
-     * @param array $events
-     *
      * @return Scenario
      */
     public function given(array $events = [])
@@ -64,8 +64,6 @@ class Scenario
     }
 
     /**
-     * @param array $commands
-     *
      * @return Scenario
      */
     public function then(array $commands)
@@ -77,7 +75,7 @@ class Scenario
 
     private function createDomainMessageForEvent($event)
     {
-        $this->playhead++;
+        ++$this->playhead;
 
         return DomainMessage::recordNow(1, $this->playhead, new Metadata([]), $event);
     }

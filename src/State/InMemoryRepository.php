@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway-saga package.
  *
@@ -18,11 +20,11 @@ class InMemoryRepository implements RepositoryInterface
     private $states = [];
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function findOneBy(Criteria $criteria, $sagaId)
     {
-        if (! isset($this->states[$sagaId])) {
+        if (!isset($this->states[$sagaId])) {
             return null;
         }
 
@@ -50,7 +52,7 @@ class InMemoryRepository implements RepositoryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function save(State $state, $sagaId)
     {

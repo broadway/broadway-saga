@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway-saga package.
  *
@@ -21,6 +23,7 @@ interface RepositoryInterface
      * @return State
      *
      * @throws RepositoryException if 0 or > 1 found
+     *
      * @todo specific exception
      */
     public function findOneBy(Criteria $criteria, $sagaId);
