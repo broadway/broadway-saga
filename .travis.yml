@@ -10,13 +10,9 @@ before_install:
   - phpenv config-rm xdebug.ini || return 0
 
 install:
-  - composer install
-  - composer info
+  - make dependencies
 
 script:
-  - vendor/bin/phpunit
-  - git log $(git describe --abbrev=0 --tags)...HEAD --no-merges --pretty=format:"* [%h](http://github.com/${TRAVIS_REPO_SLUG}/commit/%H) %s (%cN)"
-
-branches:
-  only:
-    - master
+  - make test
+  - make qa
+  - make changelog
