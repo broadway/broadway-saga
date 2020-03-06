@@ -36,7 +36,7 @@
   "require-dev": {
     "phpunit/phpunit": "^8.0",
     "ramsey/uuid": "^3.3",
-    "broadway/coding-standard": "~0.1"
+    "broadway/coding-standard": "^1.0"
   },
   "suggest": {
     "broadway/saga-state-mongodb": "For persisting saga states in MongoDB"
