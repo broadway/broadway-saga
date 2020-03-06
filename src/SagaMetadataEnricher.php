@@ -18,9 +18,12 @@ use Broadway\EventSourcing\MetadataEnrichment\MetadataEnricher;
 
 class SagaMetadataEnricher implements MetadataEnricher
 {
+    /**
+     * @var array
+     */
     private $sagaData = [];
 
-    public function postHandleSaga($type, $id)
+    public function postHandleSaga(string $type, string $id): void
     {
         $this->sagaData = ['type' => $type, 'state_id' => $id];
     }

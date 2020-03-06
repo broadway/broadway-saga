@@ -21,7 +21,7 @@ class StateTest extends TestCase
 
     public function setUp(): void
     {
-        $this->state = new State(42);
+        $this->state = new State('42');
     }
 
     /**

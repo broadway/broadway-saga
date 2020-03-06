@@ -26,33 +26,39 @@ use Broadway\Serializer\Serializable;
  */
 class State implements Serializable
 {
+    /**
+     * @var bool
+     */
     private $done = false;
+    /**
+     * @var string
+     */
     private $id;
+    /**
+     * @var array
+     */
     private $values = [];
 
     /**
      * @param string $id Unique identifier for the state object
      */
-    public function __construct($id)
+    public function __construct(string $id)
     {
         $this->id = $id;
     }
 
     /**
-     * @param string $key
-     * @param mixed  $value
+     * @param mixed $value
      */
-    public function set($key, $value)
+    public function set(string $key, $value): void
     {
         $this->values[$key] = $value;
     }
 
     /**
-     * @param string $key
-     *
-     * @return mixed|null
+     * @return mixed
      */
-    public function get($key)
+    public function get(string $key)
     {
         if (!isset($this->values[$key])) {
             return null; // todo: exception?
@@ -61,10 +67,7 @@ class State implements Serializable
         return $this->values[$key];
     }
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
@@ -72,15 +75,12 @@ class State implements Serializable
     /**
      * Mark the saga as done.
      */
-    public function setDone()
+    public function setDone(): void
     {
         $this->done = true;
     }
 
-    /**
-     * @return bool
-     */
-    public function isDone()
+    public function isDone(): bool
     {
         return $this->done;
     }
@@ -96,7 +96,7 @@ class State implements Serializable
     /**
      * {@inheritdoc}
      */
-    public static function deserialize(array $data)
+    public static function deserialize(array $data): State
     {
         $state = new State($data['id']);
         $state->done = $data['done'];

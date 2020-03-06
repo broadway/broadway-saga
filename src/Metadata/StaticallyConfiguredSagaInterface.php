@@ -20,5 +20,5 @@ use Broadway\Saga\SagaInterface;
  */
 interface StaticallyConfiguredSagaInterface extends SagaInterface
 {
-    public static function configuration();
+    public static function configuration(): array;
 }

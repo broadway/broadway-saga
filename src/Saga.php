@@ -20,18 +20,18 @@ abstract class Saga implements SagaInterface
     /**
      * {@inheritdoc}
      */
-    public function handle(DomainMessage $domainMessage, State $state)
+    public function handle(DomainMessage $domainMessage, State $state): State
     {
         $method = $this->getHandleMethod($domainMessage);
 
         if (!method_exists($this, $method)) {
-            throw new \BadMethodCallException(sprintf("No handle method '%s' for event '%s'.", $method, get_class($event)));
+            throw new \BadMethodCallException(sprintf("No handle method '%s' for event '%s'.", $method, get_class($domainMessage->getPayload())));
         }
 
         return $this->$method($domainMessage->getPayload(), $state);
     }
 
-    private function getHandleMethod(DomainMessage $domainMessage)
+    private function getHandleMethod(DomainMessage $domainMessage): string
     {
         $classParts = explode('\\', get_class($domainMessage->getPayload()));
 

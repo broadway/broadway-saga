@@ -21,10 +21,29 @@ use PHPUnit\Framework\TestCase;
 
 class Scenario
 {
+    /**
+     * @var TestCase
+     */
     private $testCase;
+
+    /**
+     * @var MultipleSagaManager
+     */
     private $sagaManager;
+
+    /**
+     * @var TraceableCommandBus
+     */
     private $traceableCommandBus;
+
+    /**
+     * @var string
+     */
     private $aggregateId;
+
+    /**
+     * @var int
+     */
     private $playhead;
 
     public function __construct(
@@ -35,26 +54,18 @@ class Scenario
         $this->testCase = $testCase;
         $this->sagaManager = $sagaManager;
         $this->traceableCommandBus = $traceableCommandBus;
-        $this->aggregateId = 1;
+        $this->aggregateId = '1';
         $this->playhead = -1;
     }
 
-    /**
-     * @param string $aggregateId
-     *
-     * @return Scenario
-     */
-    public function withAggregateId($aggregateId)
+    public function withAggregateId(string $aggregateId): Scenario
     {
         $this->aggregateId = $aggregateId;
 
         return $this;
     }
 
-    /**
-     * @return Scenario
-     */
-    public function given(array $events = [])
+    public function given(array $events = []): Scenario
     {
         foreach ($events as $given) {
             $this->sagaManager->handle($this->createDomainMessageForEvent($given));
@@ -65,10 +76,8 @@ class Scenario
 
     /**
      * @param mixed $event
-     *
-     * @return Scenario
      */
-    public function when($event)
+    public function when($event): Scenario
     {
         $this->traceableCommandBus->record();
 
@@ -77,17 +86,17 @@ class Scenario
         return $this;
     }
 
-    /**
-     * @return Scenario
-     */
-    public function then(array $commands)
+    public function then(array $commands): Scenario
     {
         $this->testCase->assertEquals($commands, $this->traceableCommandBus->getRecordedCommands());
 
         return $this;
     }
 
-    private function createDomainMessageForEvent($event)
+    /**
+     * @param mixed $event
+     */
+    private function createDomainMessageForEvent($event): DomainMessage
     {
         ++$this->playhead;
 

@@ -17,12 +17,15 @@ use Broadway\Saga\State;
 
 class InMemoryRepository implements RepositoryInterface
 {
+    /**
+     * @var array
+     */
     private $states = [];
 
     /**
      * {@inheritdoc}
      */
-    public function findOneBy(Criteria $criteria, $sagaId)
+    public function findOneBy(Criteria $criteria, string $sagaId): ?State
     {
         if (!isset($this->states[$sagaId])) {
             return null;
@@ -31,7 +34,7 @@ class InMemoryRepository implements RepositoryInterface
         $states = $this->states[$sagaId];
 
         foreach ($criteria->getComparisons() as $key => $value) {
-            $states = array_filter($states, function ($elem) use ($key, $value) {
+            $states = array_filter($states, function ($elem) use ($key, $value): bool {
                 $stateValue = $elem->get($key);
 
                 return is_array($stateValue) ? in_array($value, $stateValue) : $value === $stateValue;
@@ -54,7 +57,7 @@ class InMemoryRepository implements RepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function save(State $state, $sagaId)
+    public function save(State $state, string $sagaId): void
     {
         if ($state->isDone()) {
             unset($this->states[$sagaId][$state->getId()]);

@@ -15,16 +15,17 @@ namespace Broadway\Saga\Metadata;
 
 use Broadway\Domain\DomainMessage;
 use Broadway\Saga\MetadataInterface;
+use Broadway\Saga\State\Criteria;
 use RuntimeException;
 
 class Metadata implements MetadataInterface
 {
+    /**
+     * @var array
+     */
     private $criteria;
 
-    /**
-     * @param array $criteria
-     */
-    public function __construct($criteria)
+    public function __construct(array $criteria)
     {
         $this->criteria = $criteria;
     }
@@ -32,7 +33,7 @@ class Metadata implements MetadataInterface
     /**
      * {@inheritdoc}
      */
-    public function handles(DomainMessage $domainMessage)
+    public function handles(DomainMessage $domainMessage): bool
     {
         $eventName = $this->getClassName($domainMessage);
 
@@ -42,7 +43,7 @@ class Metadata implements MetadataInterface
     /**
      * {@inheritdoc}
      */
-    public function criteria(DomainMessage $domainMessage)
+    public function criteria(DomainMessage $domainMessage): ?Criteria
     {
         $eventName = $this->getClassName($domainMessage);
         if (!$this->handles($domainMessage)) {
@@ -52,6 +53,9 @@ class Metadata implements MetadataInterface
         return $this->criteria[$eventName]($domainMessage->getPayload(), $domainMessage);
     }
 
+    /**
+     * @return string|false
+     */
     private function getClassName(DomainMessage $domainMessage)
     {
         $event = $domainMessage->getPayload();
