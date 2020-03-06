@@ -28,6 +28,16 @@ class MultipleSagaManager implements SagaManagerInterface
     private $stateManager;
     private $eventDispatcher;
 
+    /**
+     * @var SagaInterface[]
+     */
+    private $sagas;
+
+    /**
+     * @var MetadataFactoryInterface
+     */
+    private $metadataFactory;
+
     public function __construct(
         RepositoryInterface $repository,
         array $sagas,
