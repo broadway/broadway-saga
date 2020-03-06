@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Broadway\Saga\Metadata;
 
 use Broadway\Domain\DomainMessage;
+use Broadway\Saga\State\Criteria;
 use PHPUnit\Framework\TestCase;
 
 class StaticallyConfiguredSagaMetadataTest extends TestCase
@@ -27,7 +28,7 @@ class StaticallyConfiguredSagaMetadataTest extends TestCase
     {
         $this->metadata = new Metadata([
             'StaticallyConfiguredSagaMetadataTestSagaTestEvent1' => function () {
-                return 'criteria';
+                return new Criteria(['criteria']);
             },
         ]);
     }
@@ -62,7 +63,7 @@ class StaticallyConfiguredSagaMetadataTest extends TestCase
         $event = new StaticallyConfiguredSagaMetadataTestSagaTestEvent1();
         $domainMessage = $this->createDomainMessage($event);
 
-        $this->assertEquals('criteria', $this->metadata->criteria($domainMessage));
+        $this->assertEquals(new Criteria(['criteria']), $this->metadata->criteria($domainMessage));
     }
 
     /**

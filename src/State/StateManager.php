@@ -18,7 +18,14 @@ use Broadway\UuidGenerator\UuidGeneratorInterface;
 
 class StateManager implements StateManagerInterface
 {
+    /**
+     * @var RepositoryInterface
+     */
     private $repository;
+
+    /**
+     * @var UuidGeneratorInterface
+     */
     private $generator;
 
     public function __construct(RepositoryInterface $repository, UuidGeneratorInterface $generator)
@@ -30,7 +37,7 @@ class StateManager implements StateManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function findOneBy($criteria, $sagaId)
+    public function findOneBy(?Criteria $criteria, string $sagaId): ?State
     {
         // TODO: Use CreationPolicy to determine whether and how a new state should be created
         if ($criteria instanceof Criteria) {

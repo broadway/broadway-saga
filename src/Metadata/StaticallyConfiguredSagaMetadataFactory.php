@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Broadway\Saga\Metadata;
 
+use Broadway\Saga\MetadataInterface;
+use Broadway\Saga\SagaInterface;
 use RuntimeException;
 
 class StaticallyConfiguredSagaMetadataFactory implements MetadataFactoryInterface
@@ -20,7 +22,7 @@ class StaticallyConfiguredSagaMetadataFactory implements MetadataFactoryInterfac
     /**
      * {@inheritdoc}
      */
-    public function create($saga)
+    public function create(SagaInterface $saga): MetadataInterface
     {
         $requiredInterface = StaticallyConfiguredSagaInterface::class;
 

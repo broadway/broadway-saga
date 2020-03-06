@@ -24,16 +24,29 @@ use Broadway\Saga\State\StateManagerInterface;
  */
 class MultipleSagaManager implements SagaManagerInterface
 {
+    /**
+     * @var RepositoryInterface
+     */
     private $repository;
+
     /**
      * @var SagaInterface[]
      */
     private $sagas = [];
+
+    /**
+     * @var StateManagerInterface
+     */
     private $stateManager;
+
     /**
      * @var MetadataFactoryInterface
      */
     private $metadataFactory;
+
+    /**
+     * @var EventDispatcher
+     */
     private $eventDispatcher;
 
     public function __construct(
@@ -63,10 +76,10 @@ class MultipleSagaManager implements SagaManagerInterface
             }
 
             $state = $this->stateManager->findOneBy($metadata->criteria($domainMessage), $sagaType);
-
             if (null === $state) {
                 continue;
             }
+
             $this->eventDispatcher->dispatch(
                 SagaManagerInterface::EVENT_PRE_HANDLE,
                 [$sagaType, $state->getId()]
@@ -79,7 +92,7 @@ class MultipleSagaManager implements SagaManagerInterface
                 [$sagaType, $state->getId()]
             );
 
-            $this->repository->save($newState, $sagaType);
+            $this->repository->save($newState, (string) $sagaType);
         }
     }
 }

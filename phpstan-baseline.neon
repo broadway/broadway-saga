@@ -1,0 +1,7 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Cannot call method getId\\(\\) on Broadway\\\\Saga\\\\State\\|null\\.$#"
+			count: 1
+			path: src/State/Testing/AbstractRepositoryTest.php
+

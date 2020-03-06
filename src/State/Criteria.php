@@ -18,6 +18,9 @@ namespace Broadway\Saga\State;
  */
 class Criteria
 {
+    /**
+     * @var array
+     */
     private $comparisons;
 
     /**
@@ -28,10 +31,7 @@ class Criteria
         $this->comparisons = $comparisons;
     }
 
-    /**
-     * @return array
-     */
-    public function getComparisons()
+    public function getComparisons(): array
     {
         return $this->comparisons;
     }

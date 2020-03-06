@@ -21,10 +21,10 @@ interface MetadataInterface
     /**
      * @return bool True, if the saga can handle the event
      */
-    public function handles(DomainMessage $domainMessage);
+    public function handles(DomainMessage $domainMessage): bool;
 
     /**
      * @return Criteria Criteria for the given event
      */
-    public function criteria(DomainMessage $domainMessage);
+    public function criteria(DomainMessage $domainMessage): ?Criteria;
 }

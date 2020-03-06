@@ -33,10 +33,8 @@ abstract class SagaScenarioTestCase extends TestCase
 
     /**
      * Create the saga you want to test in this test case.
-     *
-     * @return SagaInterface
      */
-    abstract protected function createSaga(CommandBus $commandBus);
+    abstract protected function createSaga(CommandBus $commandBus): SagaInterface;
 
     protected function setUp(): void
     {
@@ -45,14 +43,14 @@ abstract class SagaScenarioTestCase extends TestCase
         $this->scenario = $this->createScenario();
     }
 
-    protected function createScenario()
+    protected function createScenario(): Scenario
     {
         $traceableCommandBus = new TraceableCommandBus();
         $saga = $this->createSaga($traceableCommandBus);
         $sagaStateRepository = new InMemoryRepository();
         $sagaManager = new MultipleSagaManager(
             $sagaStateRepository,
-            [$saga],
+            [get_class($saga) => $saga],
             new StateManager($sagaStateRepository, new Version4Generator()),
             new StaticallyConfiguredSagaMetadataFactory(),
             new CallableEventDispatcher()

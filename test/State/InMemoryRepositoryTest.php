@@ -17,7 +17,7 @@ use Broadway\Saga\State\Testing\AbstractRepositoryTest;
 
 class InMemoryRepositoryTest extends AbstractRepositoryTest
 {
-    protected function createRepository()
+    protected function createRepository(): RepositoryInterface
     {
         return new InMemoryRepository();
     }

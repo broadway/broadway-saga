@@ -13,14 +13,13 @@ declare(strict_types=1);
 
 namespace Broadway\Saga\Metadata;
 
+use Broadway\Saga\MetadataInterface;
+use Broadway\Saga\SagaInterface;
+
 interface MetadataFactoryInterface
 {
     /**
      * Creates and returns the Metadata for the given saga class.
-     *
-     * @param string $saga
-     *
-     * @return \Broadway\Saga\MetadataInterface
      */
-    public function create($saga);
+    public function create(SagaInterface $saga): MetadataInterface;
 }

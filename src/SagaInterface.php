@@ -17,8 +17,5 @@ use Broadway\Domain\DomainMessage;
 
 interface SagaInterface
 {
-    /**
-     * @return State
-     */
-    public function handle(DomainMessage $domainMessage, State $state);
+    public function handle(DomainMessage $domainMessage, State $state): State;
 }

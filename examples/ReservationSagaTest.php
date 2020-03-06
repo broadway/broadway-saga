@@ -11,15 +11,16 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-require __DIR__.'/ReservationSaga.php';
+namespace Broadway\Saga\Examples;
 
 use Broadway\CommandHandling\CommandBus;
+use Broadway\Saga\SagaInterface;
 use Broadway\Saga\Testing\SagaScenarioTestCase;
 use Broadway\UuidGenerator\Testing\MockUuidSequenceGenerator;
 
 class ReservationSagaTest extends SagaScenarioTestCase
 {
-    protected function createSaga(CommandBus $commandBus)
+    protected function createSaga(CommandBus $commandBus): SagaInterface
     {
         return new ReservationSaga($commandBus, new MockUuidSequenceGenerator(
             [
@@ -31,7 +32,7 @@ class ReservationSagaTest extends SagaScenarioTestCase
     /**
      * @test
      */
-    public function it_makes_a_seat_reservation_when_an_order_was_placed()
+    public function it_makes_a_seat_reservation_when_an_order_was_placed(): void
     {
         $this->scenario
             ->when(new OrderPlaced('9d66f760-29f7-11e5-a239-0002a5d5c51b', 5))
@@ -43,7 +44,7 @@ class ReservationSagaTest extends SagaScenarioTestCase
     /**
      * @test
      */
-    public function it_marks_the_order_as_booked_when_the_seat_reservation_was_accepted()
+    public function it_marks_the_order_as_booked_when_the_seat_reservation_was_accepted(): void
     {
         $this->scenario
             ->given([
@@ -58,7 +59,7 @@ class ReservationSagaTest extends SagaScenarioTestCase
     /**
      * @test
      */
-    public function it_rejects_the_order_when_the_seat_reservation_was_rejected()
+    public function it_rejects_the_order_when_the_seat_reservation_was_rejected(): void
     {
         $this->scenario
             ->given([

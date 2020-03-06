@@ -23,10 +23,5 @@ use Broadway\Saga\State;
  */
 interface StateManagerInterface
 {
-    /**
-     * @param Criteria|null $criteria
-     *
-     * @return State
-     */
-    public function findOneBy($criteria, $sagaId);
+    public function findOneBy(?Criteria $criteria, string $sagaId): ?State;
 }

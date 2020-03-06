@@ -36,7 +36,7 @@ class StateManagerTest extends TestCase
     {
         $state = $this->manager->findOneBy(null, 'sagaId');
 
-        $this->assertEquals(new State(42), $state);
+        $this->assertEquals(new State('42'), $state);
     }
 
     /**
@@ -44,7 +44,7 @@ class StateManagerTest extends TestCase
      */
     public function it_returns_an_existing_state_instance_matching_the_returned_criteria()
     {
-        $state = new State(1337);
+        $state = new State('1337');
         $state->set('appId', 1337);
         $this->repository->save($state, 'sagaId');
         $criteria = new Criteria(['appId' => 1337]);
