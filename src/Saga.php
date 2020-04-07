@@ -13,20 +13,23 @@ declare(strict_types=1);
 
 namespace Broadway\Saga;
 
+use Broadway\Domain\DomainMessage;
+
 abstract class Saga implements SagaInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function handle($event, State $state)
+    public function handle(State $state, DomainMessage $domainMessage)
     {
+        $event = $domainMessage->getPayload();
         $method = $this->getHandleMethod($event);
 
         if (!method_exists($this, $method)) {
             throw new \BadMethodCallException(sprintf("No handle method '%s' for event '%s'.", $method, get_class($event)));
         }
 
-        return $this->$method($event, $state);
+        return $this->$method($state, $event, $domainMessage);
     }
 
     private function getHandleMethod($event)

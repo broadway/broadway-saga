@@ -256,10 +256,10 @@ class MultipleSagaManagerTest extends TestCase
 class SagaManagerTestSaga implements StaticallyConfiguredSagaInterface
 {
     public $isCalled = false;
-
-    public function handle($event, State $state = null)
+    public function handle(State $state, DomainMessage $domainMessage)
     {
         $this->isCalled = true;
+        $event = $domainMessage->getPayload();
 
         if ($event instanceof TestEvent1) {
             $state->set('event', 'testevent1');

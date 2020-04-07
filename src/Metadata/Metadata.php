@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Broadway\Saga\Metadata;
 
+use Broadway\Domain\DomainMessage;
 use Broadway\Saga\MetadataInterface;
 use RuntimeException;
 
@@ -31,9 +32,9 @@ class Metadata implements MetadataInterface
     /**
      * {@inheritdoc}
      */
-    public function handles($event)
+    public function handles(DomainMessage $domainMessage)
     {
-        $eventName = $this->getClassName($event);
+        $eventName = $this->getClassName($domainMessage);
 
         return isset($this->criteria[$eventName]);
     }
@@ -41,19 +42,19 @@ class Metadata implements MetadataInterface
     /**
      * {@inheritdoc}
      */
-    public function criteria($event)
+    public function criteria(DomainMessage $domainMessage)
     {
-        $eventName = $this->getClassName($event);
-
-        if (!isset($this->criteria[$eventName])) {
+        $eventName = $this->getClassName($domainMessage);
+        if (!$this->handles($domainMessage)) {
             throw new RuntimeException(sprintf("No criteria for event '%s'.", $eventName));
         }
 
-        return $this->criteria[$eventName]($event);
+        return $this->criteria[$eventName]($domainMessage->getPayload(), $domainMessage);
     }
 
-    private function getClassName($event)
+    private function getClassName(DomainMessage $domainMessage)
     {
+        $event = $domainMessage->getPayload();
         $classParts = explode('\\', get_class($event));
 
         return end($classParts);
