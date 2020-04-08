@@ -25,18 +25,16 @@ use Broadway\Saga\State\StateManagerInterface;
 class MultipleSagaManager implements SagaManagerInterface
 {
     private $repository;
-    private $stateManager;
-    private $eventDispatcher;
-
     /**
      * @var SagaInterface[]
      */
-    private $sagas;
-
+    private $sagas = [];
+    private $stateManager;
     /**
      * @var MetadataFactoryInterface
      */
     private $metadataFactory;
+    private $eventDispatcher;
 
     public function __construct(
         RepositoryInterface $repository,
@@ -57,16 +55,14 @@ class MultipleSagaManager implements SagaManagerInterface
      */
     public function handle(DomainMessage $domainMessage): void
     {
-        $event = $domainMessage->getPayload();
-
         foreach ($this->sagas as $sagaType => $saga) {
             $metadata = $this->metadataFactory->create($saga);
 
-            if (!$metadata->handles($event)) {
+            if (!$metadata->handles($domainMessage)) {
                 continue;
             }
 
-            $state = $this->stateManager->findOneBy($metadata->criteria($event), $sagaType);
+            $state = $this->stateManager->findOneBy($metadata->criteria($domainMessage), $sagaType);
 
             if (null === $state) {
                 continue;
@@ -76,7 +72,7 @@ class MultipleSagaManager implements SagaManagerInterface
                 [$sagaType, $state->getId()]
             );
 
-            $newState = $saga->handle($event, $state);
+            $newState = $saga->handle($domainMessage, $state);
 
             $this->eventDispatcher->dispatch(
                 SagaManagerInterface::EVENT_POST_HANDLE,
