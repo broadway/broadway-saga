@@ -20,7 +20,7 @@ abstract class Saga implements SagaInterface
     /**
      * {@inheritdoc}
      */
-    public function handle(State $state, DomainMessage $domainMessage)
+    public function handle(DomainMessage $domainMessage, State $state)
     {
         $event = $domainMessage->getPayload();
         $method = $this->getHandleMethod($event);

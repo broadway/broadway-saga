@@ -257,7 +257,7 @@ class SagaManagerTestSaga implements StaticallyConfiguredSagaInterface
 {
     public $isCalled = false;
 
-    public function handle(State $state, DomainMessage $domainMessage)
+    public function handle(DomainMessage $domainMessage, State $state)
     {
         $this->isCalled = true;
         $event = $domainMessage->getPayload();

@@ -26,7 +26,7 @@ class MultipleSagaManager implements SagaManagerInterface
 {
     private $repository;
     /**
-     * @var Saga[]
+     * @var SagaInterface[]
      */
     private $sagas = [];
     private $stateManager;
@@ -35,16 +35,6 @@ class MultipleSagaManager implements SagaManagerInterface
      */
     private $metadataFactory;
     private $eventDispatcher;
-
-    /**
-     * @var SagaInterface[]
-     */
-    private $sagas;
-
-    /**
-     * @var MetadataFactoryInterface
-     */
-    private $metadataFactory;
 
     public function __construct(
         RepositoryInterface $repository,
@@ -82,7 +72,7 @@ class MultipleSagaManager implements SagaManagerInterface
                 [$sagaType, $state->getId()]
             );
 
-            $newState = $saga->handle($state, $domainMessage);
+            $newState = $saga->handle($domainMessage, $state);
 
             $this->eventDispatcher->dispatch(
                 SagaManagerInterface::EVENT_POST_HANDLE,
