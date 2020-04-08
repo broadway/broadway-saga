@@ -35,8 +35,8 @@ class Scenario
         $this->testCase = $testCase;
         $this->sagaManager = $sagaManager;
         $this->traceableCommandBus = $traceableCommandBus;
-        $this->aggregateId         = 1;
-        $this->playhead            = -1;
+        $this->aggregateId = 1;
+        $this->playhead = -1;
     }
 
     /**
@@ -50,10 +50,8 @@ class Scenario
 
         return $this;
     }
-    
+
     /**
-     * @param array $events
-     *
      * @return Scenario
      */
     public function given(array $events = [])
