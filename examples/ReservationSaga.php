@@ -54,7 +54,7 @@ class ReservationSaga extends Saga implements StaticallyConfiguredSagaInterface
         ];
     }
 
-    public function handleOrderPlaced(State $state, OrderPlaced $event)
+    public function handleOrderPlaced(OrderPlaced $event, State $state)
     {
         // keep the order id, for reference in `handleReservationAccepted()` and `handleReservationRejected()`
         $state->set('orderId', $event->orderId());
@@ -70,7 +70,7 @@ class ReservationSaga extends Saga implements StaticallyConfiguredSagaInterface
         return $state;
     }
 
-    public function handleReservationAccepted(State $state, ReservationAccepted $event)
+    public function handleReservationAccepted(ReservationAccepted $event, State $state)
     {
         // the seat reservation for the given order is has been accepted, mark the order as booked
         $command = new MarkOrderAsBooked($state->get('orderId'));
@@ -82,7 +82,7 @@ class ReservationSaga extends Saga implements StaticallyConfiguredSagaInterface
         return $state;
     }
 
-    public function handleReservationRejected(State $state, ReservationRejected $event)
+    public function handleReservationRejected(ReservationRejected $event, State $state)
     {
         // the seat reservation for the given order is has been rejected, reject the order as well
         $command = new RejectOrder($state->get('orderId'));
