@@ -20,5 +20,5 @@ interface SagaInterface
     /**
      * @return State
      */
-    public function handle(State $state, DomainMessage $domainMessage);
+    public function handle(DomainMessage $domainMessage, State $state);
 }

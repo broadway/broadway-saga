@@ -48,7 +48,7 @@ class StaticallyConfiguredSagaMetadataFactoryTestEvent
 
 class StaticallyConfiguredSaga implements StaticallyConfiguredSagaInterface
 {
-    public function handle(State $state, DomainMessage $domainMessage)
+    public function handle(DomainMessage $domainMessage, State $state)
     {
         return $state;
     }
