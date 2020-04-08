@@ -48,7 +48,7 @@ class StaticallyConfiguredSagaMetadataFactoryTestEvent
 
 class StaticallyConfiguredSaga implements StaticallyConfiguredSagaInterface
 {
-        public function handle(State $state, DomainMessage $domainMessage)
+    public function handle(State $state, DomainMessage $domainMessage)
     {
         return $state;
     }
@@ -58,7 +58,7 @@ class StaticallyConfiguredSaga implements StaticallyConfiguredSagaInterface
         return [
             'StaticallyConfiguredSagaMetadataFactoryTestEvent' => function ($event, DomainMessage $domainMessage) {
                 return new Criteria(['id' => $domainMessage->getId()]);
-            }
+            },
         ];
     }
 }

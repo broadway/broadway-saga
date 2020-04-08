@@ -68,7 +68,7 @@ class MultipleSagaManager implements SagaManagerInterface
         foreach ($this->sagas as $sagaType => $saga) {
             $metadata = $this->metadataFactory->create($saga);
 
-            if (! $metadata->handles($domainMessage)) {
+            if (!$metadata->handles($domainMessage)) {
                 continue;
             }
 

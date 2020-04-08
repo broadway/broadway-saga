@@ -256,6 +256,7 @@ class MultipleSagaManagerTest extends TestCase
 class SagaManagerTestSaga implements StaticallyConfiguredSagaInterface
 {
     public $isCalled = false;
+
     public function handle(State $state, DomainMessage $domainMessage)
     {
         $this->isCalled = true;

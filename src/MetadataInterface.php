@@ -19,15 +19,11 @@ use Broadway\Saga\State\Criteria;
 interface MetadataInterface
 {
     /**
-     * @param DomainMessage $domainMessage
-     *
      * @return bool True, if the saga can handle the event
      */
     public function handles(DomainMessage $domainMessage);
 
     /**
-     * @param DomainMessage $domainMessage
-     *
      * @return Criteria Criteria for the given event
      */
     public function criteria(DomainMessage $domainMessage);
