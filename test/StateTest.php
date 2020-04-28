@@ -82,6 +82,20 @@ class StateTest extends TestCase
     /**
      * @test
      */
+    public function it_exposes_its_values()
+    {
+        $state = new State('42');
+        $state->set('foo', 'bar');
+        $state->set('bar', 'baz');
+        $this->assertEquals([
+            'foo' => 'bar',
+            'bar' => 'baz',
+        ], $state->getValues());
+    }
+
+    /**
+     * @test
+     */
     public function it_can_be_serialized_and_deserialized_to_itself()
     {
         $this->state->set('foo', 'bar');

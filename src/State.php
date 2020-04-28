@@ -72,6 +72,11 @@ class State implements Serializable
         return $this->id;
     }
 
+    public function getValues(): array
+    {
+        return $this->values;
+    }
+
     /**
      * Mark the saga as done.
      */
