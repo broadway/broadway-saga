@@ -217,6 +217,20 @@ class State implements Serializable
     }
 
     /**
+     * Set `new` flag.
+     *
+     * @param bool $flag
+     *
+     * @return $this
+     */
+    public function setNewFlag(bool $flag): self
+    {
+        $this->isNew = $flag;
+
+        return $this;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function serialize(): array

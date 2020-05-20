@@ -68,7 +68,7 @@ class InMemoryRepository implements RepositoryInterface
     {
         if (null !== $sagaId) {
             if (! isset($this->states[$sagaId])) {
-                return null;
+                return [];
             }
 
             $states = $this->states[$sagaId];
@@ -76,7 +76,7 @@ class InMemoryRepository implements RepositoryInterface
             $states = [];
 
             foreach ($this->states as $sagaStates) {
-                $states = $states + $sagaStates;
+                $states += $sagaStates;
             }
         }
 
@@ -112,6 +112,7 @@ class InMemoryRepository implements RepositoryInterface
         if ($state->isDone()) {
             unset($this->states[$state->getSagaId()][$state->getId()]);
         } else {
+            $state->setNewFlag(false);
             $this->states[$state->getSagaId()][$state->getId()] = $state;
         }
     }
