@@ -29,7 +29,7 @@ class StateTest extends TestCase
      */
     public function setUp()
     {
-        $this->state = new State(42, 'test.saga');
+        $this->state = new State(42, 'test.saga', false);
     }
 
     /**

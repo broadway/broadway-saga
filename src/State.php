@@ -243,7 +243,7 @@ class State implements Serializable
      */
     public static function deserialize(array $data)
     {
-        $state          = new State($data['id'], $data['saga_id']);
+        $state          = new State($data['id'], $data['saga_id'], false);
         $state->status  = $data['status'];
         $state->values  = $data['values'];
 
