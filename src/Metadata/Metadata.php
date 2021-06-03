@@ -54,7 +54,7 @@ class Metadata implements MetadataInterface
     }
 
     /**
-     * @return string|false
+     * @return string
      */
     private function getClassName(DomainMessage $domainMessage)
     {
