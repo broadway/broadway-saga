@@ -17,6 +17,6 @@ use Broadway\EventHandling\EventListener;
 
 interface SagaManagerInterface extends EventListener
 {
-    const EVENT_PRE_HANDLE = 'broadway.saga.pre_handle';
-    const EVENT_POST_HANDLE = 'broadway.saga.post_handle';
+    public const EVENT_PRE_HANDLE = 'broadway.saga.pre_handle';
+    public const EVENT_POST_HANDLE = 'broadway.saga.post_handle';
 }
