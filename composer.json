@@ -37,7 +37,7 @@
     "phpunit/phpunit": "^9.5",
     "ramsey/uuid": "^4.0",
     "broadway/coding-standard": "^1.2",
-    "phpstan/phpstan": "@stable"
+    "phpstan/phpstan": "^1.0"
   },
   "suggest": {
     "broadway/saga-state-mongodb": "For persisting saga states in MongoDB"
