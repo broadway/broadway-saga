@@ -1,6 +1,46 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Parameter \\#1 \\$orderId of class Broadway\\\\Saga\\\\Examples\\\\MarkOrderAsBooked constructor expects string, mixed given\\.$#"
+			count: 1
+			path: examples/ReservationSaga.php
+
+		-
+			message: "#^Parameter \\#1 \\$orderId of class Broadway\\\\Saga\\\\Examples\\\\RejectOrder constructor expects string, mixed given\\.$#"
+			count: 1
+			path: examples/ReservationSaga.php
+
+		-
+			message: "#^Property Broadway\\\\Saga\\\\Examples\\\\MarkOrderAsBooked\\:\\:\\$orderId is never read, only written\\.$#"
+			count: 1
+			path: examples/ReservationSaga.php
+
+		-
+			message: "#^Property Broadway\\\\Saga\\\\Examples\\\\RejectOrder\\:\\:\\$orderId is never read, only written\\.$#"
+			count: 1
+			path: examples/ReservationSaga.php
+
+		-
+			message: "#^Parameter \\#1 \\$object of function get_class expects object, mixed given\\.$#"
+			count: 1
+			path: src/Metadata/Metadata.php
+
+		-
+			message: "#^Parameter \\#2 \\$string of function explode expects string, class\\-string\\|false given\\.$#"
+			count: 1
+			path: src/Metadata/Metadata.php
+
+		-
+			message: "#^Parameter \\#1 \\$object of function get_class expects object, mixed given\\.$#"
+			count: 2
+			path: src/Saga.php
+
+		-
+			message: "#^Parameter \\#2 \\$string of function explode expects string, class\\-string\\|false given\\.$#"
+			count: 1
+			path: src/Saga.php
+
+		-
 			message: "#^Cannot call method getId\\(\\) on Broadway\\\\Saga\\\\State\\|null\\.$#"
 			count: 1
 			path: src/State/Testing/AbstractRepositoryTest.php
