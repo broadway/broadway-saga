@@ -15,7 +15,6 @@ namespace Broadway\Saga\Metadata;
 
 use Broadway\Saga\MetadataInterface;
 use Broadway\Saga\SagaInterface;
-use RuntimeException;
 
 class StaticallyConfiguredSagaMetadataFactory implements MetadataFactoryInterface
 {
@@ -27,7 +26,7 @@ class StaticallyConfiguredSagaMetadataFactory implements MetadataFactoryInterfac
         $requiredInterface = StaticallyConfiguredSagaInterface::class;
 
         if (!is_subclass_of($saga, $requiredInterface)) {
-            throw new RuntimeException(sprintf('Provided saga of class %s must implement %s', get_class($saga), $requiredInterface));
+            throw new \RuntimeException(sprintf('Provided saga of class %s must implement %s', get_class($saga), $requiredInterface));
         }
 
         $criteria = $saga::configuration();

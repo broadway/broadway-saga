@@ -16,7 +16,6 @@ namespace Broadway\Saga\Metadata;
 use Broadway\Domain\DomainMessage;
 use Broadway\Saga\MetadataInterface;
 use Broadway\Saga\State\Criteria;
-use RuntimeException;
 
 class Metadata implements MetadataInterface
 {
@@ -47,7 +46,7 @@ class Metadata implements MetadataInterface
     {
         $eventName = $this->getClassName($domainMessage);
         if (!$this->handles($domainMessage)) {
-            throw new RuntimeException(sprintf("No criteria for event '%s'.", $eventName));
+            throw new \RuntimeException(sprintf("No criteria for event '%s'.", $eventName));
         }
 
         return $this->criteria[$eventName]($domainMessage->getPayload(), $domainMessage);
