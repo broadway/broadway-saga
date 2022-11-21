@@ -40,8 +40,3 @@ parameters:
 			count: 1
 			path: src/Saga.php
 
-		-
-			message: "#^Cannot call method getId\\(\\) on Broadway\\\\Saga\\\\State\\|null\\.$#"
-			count: 1
-			path: src/State/Testing/AbstractRepositoryTest.php
-
