@@ -29,9 +29,6 @@ class Metadata implements MetadataInterface
         $this->criteria = $criteria;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function handles(DomainMessage $domainMessage): bool
     {
         $eventName = $this->getClassName($domainMessage);
@@ -39,9 +36,6 @@ class Metadata implements MetadataInterface
         return isset($this->criteria[$eventName]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function criteria(DomainMessage $domainMessage): ?Criteria
     {
         $eventName = $this->getClassName($domainMessage);

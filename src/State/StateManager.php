@@ -34,9 +34,6 @@ class StateManager implements StateManagerInterface
         $this->generator = $generator;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findOneBy(?Criteria $criteria, string $sagaId): ?State
     {
         // TODO: Use CreationPolicy to determine whether and how a new state should be created

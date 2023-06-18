@@ -47,17 +47,11 @@ class State implements Serializable
         $this->id = $id;
     }
 
-    /**
-     * @param mixed $value
-     */
     public function set(string $key, $value): void
     {
         $this->values[$key] = $value;
     }
 
-    /**
-     * @return mixed
-     */
     public function get(string $key)
     {
         if (!isset($this->values[$key])) {
@@ -90,17 +84,11 @@ class State implements Serializable
         return $this->done;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function serialize(): array
     {
         return ['id' => $this->getId(), 'values' => $this->values, 'done' => $this->isDone()];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function deserialize(array $data): State
     {
         $state = new State($data['id']);
