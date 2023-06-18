@@ -74,9 +74,6 @@ class Scenario
         return $this;
     }
 
-    /**
-     * @param mixed $event
-     */
     public function when($event): Scenario
     {
         $this->traceableCommandBus->record();
@@ -93,9 +90,6 @@ class Scenario
         return $this;
     }
 
-    /**
-     * @param mixed $event
-     */
     private function createDomainMessageForEvent($event): DomainMessage
     {
         ++$this->playhead;

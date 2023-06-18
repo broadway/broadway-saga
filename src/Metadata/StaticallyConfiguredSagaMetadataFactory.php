@@ -18,9 +18,6 @@ use Broadway\Saga\SagaInterface;
 
 class StaticallyConfiguredSagaMetadataFactory implements MetadataFactoryInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function create(SagaInterface $saga): MetadataInterface
     {
         $requiredInterface = StaticallyConfiguredSagaInterface::class;

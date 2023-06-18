@@ -22,9 +22,6 @@ class InMemoryRepository implements RepositoryInterface
      */
     private $states = [];
 
-    /**
-     * {@inheritdoc}
-     */
     public function findOneBy(Criteria $criteria, string $sagaId): ?State
     {
         if (!isset($this->states[$sagaId])) {
@@ -54,9 +51,6 @@ class InMemoryRepository implements RepositoryInterface
         return null;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function save(State $state, string $sagaId): void
     {
         if ($state->isDone()) {

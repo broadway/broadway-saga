@@ -17,9 +17,6 @@ use Broadway\Domain\DomainMessage;
 
 abstract class Saga implements SagaInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function handle(DomainMessage $domainMessage, State $state): State
     {
         $method = $this->getHandleMethod($domainMessage);
