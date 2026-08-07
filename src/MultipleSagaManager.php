@@ -54,7 +54,7 @@ class MultipleSagaManager implements SagaManagerInterface
         array $sagas,
         StateManagerInterface $stateManager,
         MetadataFactoryInterface $metadataFactory,
-        EventDispatcher $eventDispatcher
+        EventDispatcher $eventDispatcher,
     ) {
         $this->repository = $repository;
         $this->sagas = $sagas;

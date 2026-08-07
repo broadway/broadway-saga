@@ -49,7 +49,7 @@ class Scenario
     public function __construct(
         TestCase $testCase,
         MultipleSagaManager $sagaManager,
-        TraceableCommandBus $traceableCommandBus
+        TraceableCommandBus $traceableCommandBus,
     ) {
         $this->testCase = $testCase;
         $this->sagaManager = $sagaManager;
