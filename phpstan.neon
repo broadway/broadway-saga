@@ -1,5 +1,2 @@
-parameters:
-    checkMissingIterableValueType: false
-
 includes:
     - phpstan-baseline.neon
