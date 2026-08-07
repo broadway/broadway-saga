@@ -3,7 +3,7 @@
   "description": "Proof-of-concept component providing saga functionality to broadway/broadway.",
   "license": "MIT",
   "require": {
-    "php": ">=7.2",
+    "php": "^8.2",
     "broadway/broadway": "^2.3.1",
     "beberlei/assert": "^3.0"
   },
