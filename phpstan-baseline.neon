@@ -1,42 +1,247 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Parameter \\#1 \\$orderId of class Broadway\\\\Saga\\\\Examples\\\\MarkOrderAsBooked constructor expects string, mixed given\\.$#"
+			message: '#^Method Broadway\\Saga\\Examples\\ReservationSaga\:\:configuration\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: examples/ReservationSaga.php
 
 		-
-			message: "#^Parameter \\#1 \\$orderId of class Broadway\\\\Saga\\\\Examples\\\\RejectOrder constructor expects string, mixed given\\.$#"
+			message: '#^Parameter \#1 \$orderId of class Broadway\\Saga\\Examples\\MarkOrderAsBooked constructor expects string, mixed given\.$#'
+			identifier: argument.type
 			count: 1
 			path: examples/ReservationSaga.php
 
 		-
-			message: "#^Property Broadway\\\\Saga\\\\Examples\\\\MarkOrderAsBooked\\:\\:\\$orderId is never read, only written\\.$#"
+			message: '#^Parameter \#1 \$orderId of class Broadway\\Saga\\Examples\\RejectOrder constructor expects string, mixed given\.$#'
+			identifier: argument.type
 			count: 1
 			path: examples/ReservationSaga.php
 
 		-
-			message: "#^Property Broadway\\\\Saga\\\\Examples\\\\RejectOrder\\:\\:\\$orderId is never read, only written\\.$#"
+			message: '#^Property Broadway\\Saga\\Examples\\MarkOrderAsBooked\:\:\$orderId is never read, only written\.$#'
+			identifier: property.onlyWritten
 			count: 1
 			path: examples/ReservationSaga.php
 
 		-
-			message: "#^Parameter \\#1 \\$object of function get_class expects object, mixed given\\.$#"
+			message: '#^Property Broadway\\Saga\\Examples\\RejectOrder\:\:\$orderId is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: examples/ReservationSaga.php
+
+		-
+			message: '#^Method Broadway\\Saga\\Metadata\\Metadata\:\:__construct\(\) has parameter \$criteria with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/Metadata/Metadata.php
 
 		-
-			message: "#^Parameter \\#2 \\$string of function explode expects string, class\\-string\\|false given\\.$#"
+			message: '#^Method Broadway\\Saga\\Metadata\\Metadata\:\:criteria\(\) should return Broadway\\Saga\\State\\Criteria\|null but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: src/Metadata/Metadata.php
 
 		-
-			message: "#^Parameter \\#1 \\$object of function get_class expects object, mixed given\\.$#"
+			message: '#^Parameter \#1 \$object of function get_class expects object, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Metadata/Metadata.php
+
+		-
+			message: '#^Parameter \#2 \$string of function explode expects string, class\-string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Metadata/Metadata.php
+
+		-
+			message: '#^Property Broadway\\Saga\\Metadata\\Metadata\:\:\$criteria type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Metadata/Metadata.php
+
+		-
+			message: '#^Trying to invoke mixed but it''s not a callable\.$#'
+			identifier: callable.nonCallable
+			count: 1
+			path: src/Metadata/Metadata.php
+
+		-
+			message: '#^Method Broadway\\Saga\\Metadata\\StaticallyConfiguredSagaInterface\:\:configuration\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Metadata/StaticallyConfiguredSagaInterface.php
+
+		-
+			message: '#^Method Broadway\\Saga\\MultipleSagaManager\:\:__construct\(\) has parameter \$sagas with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/MultipleSagaManager.php
+
+		-
+			message: '#^Property Broadway\\Saga\\MultipleSagaManager\:\:\$sagas \(array\<Broadway\\Saga\\SagaInterface\>\) does not accept array\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/MultipleSagaManager.php
+
+		-
+			message: '#^Method Broadway\\Saga\\Saga\:\:handle\(\) should return Broadway\\Saga\\State but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Saga.php
+
+		-
+			message: '#^Parameter \#1 \$object of function get_class expects object, mixed given\.$#'
+			identifier: argument.type
 			count: 2
 			path: src/Saga.php
 
 		-
-			message: "#^Parameter \\#2 \\$string of function explode expects string, class\\-string\\|false given\\.$#"
+			message: '#^Parameter \#2 \$string of function explode expects string, class\-string\|false given\.$#'
+			identifier: argument.type
 			count: 1
 			path: src/Saga.php
 
+		-
+			message: '#^Property Broadway\\Saga\\SagaMetadataEnricher\:\:\$sagaData type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/SagaMetadataEnricher.php
+
+		-
+			message: '#^Method Broadway\\Saga\\State\:\:deserialize\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/State.php
+
+		-
+			message: '#^Method Broadway\\Saga\\State\:\:get\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/State.php
+
+		-
+			message: '#^Method Broadway\\Saga\\State\:\:getValues\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/State.php
+
+		-
+			message: '#^Method Broadway\\Saga\\State\:\:serialize\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/State.php
+
+		-
+			message: '#^Method Broadway\\Saga\\State\:\:set\(\) has parameter \$value with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/State.php
+
+		-
+			message: '#^Parameter \#1 \$id of class Broadway\\Saga\\State constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/State.php
+
+		-
+			message: '#^Property Broadway\\Saga\\State\:\:\$done \(bool\) does not accept mixed\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/State.php
+
+		-
+			message: '#^Property Broadway\\Saga\\State\:\:\$values \(array\) does not accept mixed\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/State.php
+
+		-
+			message: '#^Property Broadway\\Saga\\State\:\:\$values type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/State.php
+
+		-
+			message: '#^Method Broadway\\Saga\\State\\Criteria\:\:__construct\(\) has parameter \$comparisons with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/State/Criteria.php
+
+		-
+			message: '#^Method Broadway\\Saga\\State\\Criteria\:\:getComparisons\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/State/Criteria.php
+
+		-
+			message: '#^Property Broadway\\Saga\\State\\Criteria\:\:\$comparisons type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/State/Criteria.php
+
+		-
+			message: '#^Cannot access offset string on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: src/State/InMemoryRepository.php
+
+		-
+			message: '#^Cannot call method get\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/State/InMemoryRepository.php
+
+		-
+			message: '#^Method Broadway\\Saga\\State\\InMemoryRepository\:\:findOneBy\(\) should return Broadway\\Saga\\State\|null but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/State/InMemoryRepository.php
+
+		-
+			message: '#^Parameter \#1 \$array of function array_filter expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/State/InMemoryRepository.php
+
+		-
+			message: '#^Parameter \#1 \$array of function current expects array\|object, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/State/InMemoryRepository.php
+
+		-
+			message: '#^Parameter \#1 \$value of function count expects array\|Countable, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/State/InMemoryRepository.php
+
+		-
+			message: '#^Property Broadway\\Saga\\State\\InMemoryRepository\:\:\$states type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/State/InMemoryRepository.php
+
+		-
+			message: '#^Method Broadway\\Saga\\Testing\\Scenario\:\:createDomainMessageForEvent\(\) has parameter \$event with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Testing/Scenario.php
+
+		-
+			message: '#^Method Broadway\\Saga\\Testing\\Scenario\:\:given\(\) has parameter \$events with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Testing/Scenario.php
+
+		-
+			message: '#^Method Broadway\\Saga\\Testing\\Scenario\:\:then\(\) has parameter \$commands with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Testing/Scenario.php
+
+		-
+			message: '#^Method Broadway\\Saga\\Testing\\Scenario\:\:when\(\) has parameter \$event with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Testing/Scenario.php
