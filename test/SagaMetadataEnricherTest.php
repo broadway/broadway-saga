@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Broadway\Saga;
 
 use Broadway\Domain\Metadata;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class SagaMetadataEnricherTest extends TestCase
@@ -27,9 +28,7 @@ class SagaMetadataEnricherTest extends TestCase
         $this->metadata = new Metadata(['yolo' => 'tralelo']);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_stores_the_state()
     {
         $type = 'type';
@@ -42,9 +41,7 @@ class SagaMetadataEnricherTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_uses_the_latest_saga_data_it_received()
     {
         $this->sagaMetadataEnricher->postHandleSaga('type1', 'id1');
@@ -56,9 +53,7 @@ class SagaMetadataEnricherTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_enriches_multiple_instances_of_metadata()
     {
         $this->sagaMetadataEnricher->postHandleSaga('type', 'id');

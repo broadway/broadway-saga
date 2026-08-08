@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Broadway\Saga;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class StateTest extends TestCase
@@ -24,17 +25,13 @@ class StateTest extends TestCase
         $this->state = new State('42');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_returns_null_if_key_is_not_set()
     {
         $this->assertNull($this->state->get('foo'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_can_set_a_value()
     {
         $this->state->set('foo', 'bar');
@@ -42,17 +39,13 @@ class StateTest extends TestCase
         $this->assertEquals('bar', $this->state->get('foo'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_is_not_done_by_default()
     {
         $this->assertFalse($this->state->isDone());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_can_be_set_as_done()
     {
         $this->state->setDone();
@@ -60,9 +53,7 @@ class StateTest extends TestCase
         $this->assertTrue($this->state->isDone());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function a_previously_set_value_is_overridden()
     {
         $this->state->set('foo', 'bar');
@@ -71,17 +62,13 @@ class StateTest extends TestCase
         $this->assertEquals('qux', $this->state->get('foo'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_exposes_its_id()
     {
         $this->assertEquals(42, $this->state->getId());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_exposes_its_values()
     {
         $state = new State('42');
@@ -93,9 +80,7 @@ class StateTest extends TestCase
         ], $state->getValues());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_can_be_serialized_and_deserialized_to_itself()
     {
         $this->state->set('foo', 'bar');

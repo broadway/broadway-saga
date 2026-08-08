@@ -15,6 +15,7 @@ namespace Broadway\Saga\Metadata;
 
 use Broadway\Domain\DomainMessage;
 use Broadway\Saga\State\Criteria;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class StaticallyConfiguredSagaMetadataTest extends TestCase
@@ -33,9 +34,7 @@ class StaticallyConfiguredSagaMetadataTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_handles_an_event_if_its_specified_by_the_saga()
     {
         $event = new StaticallyConfiguredSagaMetadataTestSagaTestEvent1();
@@ -44,9 +43,7 @@ class StaticallyConfiguredSagaMetadataTest extends TestCase
         $this->assertTrue($this->metadata->handles($domainMessage));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_does_not_handle_an_event_if_its_not_specified_by_the_saga()
     {
         $event = new StaticallyConfiguredSagaMetadataTestSagaTestEvent2();
@@ -55,9 +52,7 @@ class StaticallyConfiguredSagaMetadataTest extends TestCase
         $this->assertFalse($this->metadata->handles($domainMessage));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_returns_the_criteria_for_a_configured_event()
     {
         $event = new StaticallyConfiguredSagaMetadataTestSagaTestEvent1();
@@ -66,9 +61,7 @@ class StaticallyConfiguredSagaMetadataTest extends TestCase
         $this->assertEquals(new Criteria(['criteria']), $this->metadata->criteria($domainMessage));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_throws_an_exception_if_there_is_no_criteria_for_a_given_event()
     {
         $this->expectException('RuntimeException');

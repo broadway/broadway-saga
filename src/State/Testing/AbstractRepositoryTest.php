@@ -16,6 +16,7 @@ namespace Broadway\Saga\State\Testing;
 use Broadway\Saga\State;
 use Broadway\Saga\State\Criteria;
 use Broadway\Saga\State\RepositoryInterface;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 abstract class AbstractRepositoryTest extends TestCase
@@ -32,9 +33,7 @@ abstract class AbstractRepositoryTest extends TestCase
 
     abstract protected function createRepository(): RepositoryInterface;
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_saves_a_state(): void
     {
         $s1 = new State('1');
@@ -46,9 +45,7 @@ abstract class AbstractRepositoryTest extends TestCase
         $this->assertEquals($s1, $found);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_removes_a_state_when_state_is_done(): void
     {
         $s1 = new State('1');
@@ -64,9 +61,7 @@ abstract class AbstractRepositoryTest extends TestCase
         $this->assertNull($this->repository->findOneBy($criteria, 'sagaId'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_finds_documents_matching_criteria(): void
     {
         $state = new State('yolo');
@@ -78,9 +73,7 @@ abstract class AbstractRepositoryTest extends TestCase
         $this->assertEquals($state, $fetchedState);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_finds_documents_matching_in_criteria(): void
     {
         $state = new State('yolo');
@@ -92,9 +85,7 @@ abstract class AbstractRepositoryTest extends TestCase
         $this->assertEquals($state, $fetchedState);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_returns_null_when_no_states_match_the_criteria(): void
     {
         $state = new State('yolo');
@@ -103,9 +94,7 @@ abstract class AbstractRepositoryTest extends TestCase
         $this->assertNull($this->repository->findOneBy(new Criteria(['Bye' => 'There']), 'sagaId'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_throws_an_exception_if_multiple_matching_elements_are_found(): void
     {
         $this->expectException('Broadway\Saga\State\RepositoryException');
@@ -120,9 +109,7 @@ abstract class AbstractRepositoryTest extends TestCase
         $this->repository->findOneBy(new Criteria(['appId' => 42]), 'sagaId');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function saving_a_state_object_with_the_same_id_only_keeps_the_last_one(): void
     {
         $s1 = new State('31415');
