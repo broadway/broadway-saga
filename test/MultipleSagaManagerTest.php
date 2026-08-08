@@ -24,6 +24,7 @@ use Broadway\Saga\State\InMemoryRepository;
 use Broadway\Saga\State\RepositoryInterface;
 use Broadway\Saga\State\StateManager;
 use Broadway\UuidGenerator\Rfc4122\Version4Generator;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class MultipleSagaManagerTest extends TestCase
@@ -45,9 +46,7 @@ class MultipleSagaManagerTest extends TestCase
         $this->manager = $this->createManager($this->repository, $this->sagas, $this->stateManager, $this->metadataFactory, $this->eventDispatcher);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_saves_the_modified_state()
     {
         $s1 = new State('1');
@@ -63,9 +62,7 @@ class MultipleSagaManagerTest extends TestCase
         $this->assertEquals('testevent1', $saved[0]->get('event'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_removes_the_state_if_the_saga_is_done()
     {
         $s1 = new State('1');
@@ -80,9 +77,7 @@ class MultipleSagaManagerTest extends TestCase
         $this->assertEquals(1, $removed[0]->getId());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_creates_and_passes_a_new_saga_state_instance_if_no_criteria_is_configured()
     {
         $this->repository->trace();
@@ -93,9 +88,7 @@ class MultipleSagaManagerTest extends TestCase
         $this->assertEquals('testevent2', $saved[0]->get('event'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_does_not_call_the_saga_if_it_is_not_configured_to_handle_an_event()
     {
         foreach ($this->sagas as $saga) {
@@ -109,9 +102,7 @@ class MultipleSagaManagerTest extends TestCase
         }
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_does_not_call_the_saga_when_no_state_is_found()
     {
         foreach ($this->sagas as $saga) {
@@ -125,9 +116,7 @@ class MultipleSagaManagerTest extends TestCase
         }
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_calls_all_sagas_configured_for_that_event()
     {
         $sagas = [
@@ -147,9 +136,7 @@ class MultipleSagaManagerTest extends TestCase
         }
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_calls_all_sagas_configured_for_that_event_even_when_a_state_is_not_found_for_previous_saga()
     {
         $s1 = new State('1');
@@ -166,9 +153,7 @@ class MultipleSagaManagerTest extends TestCase
         $this->assertTrue($sagas['saga2']->isCalled);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_gives_every_saga_an_own_stage_even_when_the_criteria_are_the_same()
     {
         $s1 = new State('1');
@@ -191,9 +176,7 @@ class MultipleSagaManagerTest extends TestCase
         $this->assertEquals('testevent1', $saved[1]->get('event'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_dispatches_events()
     {
         $stateId = '1';
@@ -214,9 +197,7 @@ class MultipleSagaManagerTest extends TestCase
         $this->assertEquals($stateId, $dispatchedEvents[1]['arguments'][1]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_dispatches_events_when_no_state_is_found()
     {
         $this->handleEvent($this->manager, new TestEvent2());
@@ -234,9 +215,7 @@ class MultipleSagaManagerTest extends TestCase
         $this->assertEquals($dispatchedEvents[0]['arguments'][1], $dispatchedEvents[1]['arguments'][1]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_does_not_dispatch_an_event_when_no_saga_is_called()
     {
         $this->handleEvent($this->manager, new TestEvent1());

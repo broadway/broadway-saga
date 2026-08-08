@@ -16,13 +16,12 @@ namespace Broadway\Saga\Metadata;
 use Broadway\Domain\DomainMessage;
 use Broadway\Saga\State;
 use Broadway\Saga\State\Criteria;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class StaticallyConfiguredSagaMetadataFactoryTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function it_creates_metadata_using_the_saga_configuration()
     {
         $metadataFactory = new StaticallyConfiguredSagaMetadataFactory();

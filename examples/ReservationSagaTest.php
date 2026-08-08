@@ -17,6 +17,7 @@ use Broadway\CommandHandling\CommandBus;
 use Broadway\Saga\SagaInterface;
 use Broadway\Saga\Testing\SagaScenarioTestCase;
 use Broadway\UuidGenerator\Testing\MockUuidSequenceGenerator;
+use PHPUnit\Framework\Attributes\Test;
 
 class ReservationSagaTest extends SagaScenarioTestCase
 {
@@ -29,9 +30,7 @@ class ReservationSagaTest extends SagaScenarioTestCase
         ));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_makes_a_seat_reservation_when_an_order_was_placed(): void
     {
         $this->scenario
@@ -41,9 +40,7 @@ class ReservationSagaTest extends SagaScenarioTestCase
             ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_marks_the_order_as_booked_when_the_seat_reservation_was_accepted(): void
     {
         $this->scenario
@@ -56,9 +53,7 @@ class ReservationSagaTest extends SagaScenarioTestCase
             ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_rejects_the_order_when_the_seat_reservation_was_rejected(): void
     {
         $this->scenario

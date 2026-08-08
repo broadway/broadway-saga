@@ -13,13 +13,12 @@ declare(strict_types=1);
 
 namespace Broadway\Saga\State;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class CriteriaTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function it_exposes_the_comparisons()
     {
         $data = ['appId' => 42, 'companyId' => 21];

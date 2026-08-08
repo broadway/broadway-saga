@@ -15,11 +15,13 @@ namespace Broadway\Saga\State;
 
 use Broadway\Saga\State;
 use Broadway\UuidGenerator\Testing\MockUuidGenerator;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class StateManagerTest extends TestCase
 {
     private $repository;
+    private $generator;
     private $manager;
 
     public function setUp(): void
@@ -29,9 +31,7 @@ class StateManagerTest extends TestCase
         $this->manager = new StateManager($this->repository, $this->generator);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_returns_a_new_state_object_if_the_criteria_is_null()
     {
         $state = $this->manager->findOneBy(null, 'sagaId');
@@ -39,9 +39,7 @@ class StateManagerTest extends TestCase
         $this->assertEquals(new State('42'), $state);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_returns_an_existing_state_instance_matching_the_returned_criteria()
     {
         $state = new State('1337');
@@ -54,9 +52,7 @@ class StateManagerTest extends TestCase
         $this->assertEquals($state, $resolvedState);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_returns_null_when_repository_does_not_find_for_given_criteria()
     {
         $criteria = new Criteria(['appId' => 1337]);
